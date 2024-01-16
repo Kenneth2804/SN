@@ -3,7 +3,8 @@ const URL="/";
 
 export const types ={
     POST_USER: "POST_USER",
-    LOAD_HOME_DATA: "LOAD_HOME_DATA"
+    LOAD_HOME_DATA: "LOAD_HOME_DATA",
+    LOGOUT: 'LOGOUT',
 }
 
 export const postuser = (payload) =>{
@@ -59,3 +60,7 @@ export const setAuthToken = (token) => ({
       }
     };
   };
+
+  export const logout = () => ({
+    type: 'LOGOUT',
+  });

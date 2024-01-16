@@ -2,7 +2,6 @@ import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from "../redux/actions/index.js";
-import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import "../css/Login.css"
@@ -32,10 +31,8 @@ export default function Login2() {
         const response = await dispatch(login(email, password));
   
         if (response.success) {
-          // Login was successful
-          // You can optionally save the token in localStorage here
         } else {
-          // Login failed, display an error message
+ 
           setErrorMessage("Login failed. Please check your credentials.");
         }
       } catch (error) {
@@ -45,10 +42,14 @@ export default function Login2() {
     };
   
     return (
-      <div className="loginviewClass">
-        <div className="container">
+      <div>
+        <div>
           <form onSubmit={handleSubmit}>
             <div className="title">Welcome</div>
+            <div className="subtitle">
+            <p> Do you have an account?</p>
+            <p> Login and have some fun!</p>
+          </div>
             <div className="inputField">
               <input
                 type="email"
