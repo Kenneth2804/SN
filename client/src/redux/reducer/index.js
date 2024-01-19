@@ -9,7 +9,6 @@ const initial = {
   authToken: null,
   homeData: null,
   isLoggedIn: false,
-  user: null,
   error: null,
   token: null,
   userEmail: null,
@@ -50,17 +49,17 @@ export default function rootReducer(state = initial, action) {
         ...state,
         allcoment: action.payload, 
       };
-      case types.CREATE_COMMENT:
-        return {
-          ...state,
-          allcoment: [...state.allcoment, action.payload], 
-        };
-        case types.SET_USER_EMAIL:
-          return {
-            ...state,
-            userEmail: action.payload,
-            userEmail2: action.payload,
-          }
+    case types.CREATE_COMMENT:
+      return {
+        ...state,
+        allcoment: [...state.allcoment, action.payload], 
+      };
+    case types.SET_USER_EMAIL:
+      return {
+        ...state,
+        userEmail: action.payload,
+        userEmail2: action.payload,
+      }
 
     default:
       return { ...state };

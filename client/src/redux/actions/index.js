@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useDispatch } from 'react-redux';
 const URL="/";
 
 export const types ={
@@ -89,12 +90,11 @@ export const login = (email, password) => {
   };
 
   export const createComment = (payload) => {
-    return async function (dispatch) {
+    return async function (dispatch, getState) { // Add getState as a parameter here
       try {
         const userEmail = getState().userEmail;
-        
+  
         if (!userEmail) {
-          // El correo electrónico del usuario es nulo, manejar el error apropiadamente.
           console.error("El correo electrónico del usuario es nulo");
           return;
         }

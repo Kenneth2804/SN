@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createComment } from '../../redux/actions/index';
-import { types } from '../../redux/actions'; // Importa los tipos de acción
+import { types } from '../../redux/actions';
+import Popup from '../general/Popup';
+
+import '../../css/inputcreator.css';
 
 export default function CreateComments() {
-    const dispatch = useDispatch();
-    const [commentText, setCommentText] = useState("");
-  
-    const handleCommentSubmit = () => {
-      dispatch(createComment({ texto: commentText }));
-      setCommentText(""); 
-    };
+  const dispatch = useDispatch();
+  const [commentText, setCommentText] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    useEffect(() => {
-      // En tu componente principal o en un componente de inicio
-      const storedEmail = localStorage.getItem("userEmail");
+  const handleCommentSubmit = () => {
+    dispatch(createComment({ texto: commentText }));
+    setCommentText("");
+    setIsPopupOpen(true);
+  };
 
-      if (storedEmail) {
-        // Si hay un correo electrónico almacenado, actualiza el estado con él
-        dispatch({ type: types.SET_USER_EMAIL, payload: storedEmail });
-      }
-    }, [dispatch]);
-  
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="Escribe un comentario"
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
-        />
-        <button onClick={handleCommentSubmit}>Enviar comentario</button>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      dispatch({ type: types.SET_USER_EMAIL, payload: storedEmail });
+    }
+  }, [dispatch]);
+
+  return (
+    <div className="create-comments-container">
+      <textarea
+        className="comment-input"
+        placeholder="Escribe un comentario"
+        value={commentText}
+        onChange={(e) => setCommentText(e.target.value)}
+        rows={4} // Adjust the number of rows as needed
+      />
+      <button className="comment-button" onClick={handleCommentSubmit}>
+        Enviar comentario
+      </button>
+    </div>
+  );
+}
