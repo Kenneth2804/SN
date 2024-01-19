@@ -5,14 +5,14 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 app.use(session({
-  secret: process.env.LOGINKEY, // Replace with your actual secret key
+  secret: process.env.LOGINKEY, 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Use 'true' if you are using HTTPS
+  cookie: { secure: false } 
 }));
-// Syncing all the models at once.
+
 conn.sync({ force: false }).then( () => {
   server.listen(process.env.PORT || 3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log('%s listening at 3001'); 
   });
 });

@@ -1,0 +1,18 @@
+.comment-card {
+  border: 1px solid #ccc;
+  padding: 8vh 23vh 4vh;
+  margin: 50px 297px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  }
+  
+  .comment-name {
+    font-weight: bold;
+  }
+  
+  .comment-text {
+    margin-top: 5px;
+
+  }
+  

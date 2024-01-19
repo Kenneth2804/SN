@@ -37,7 +37,7 @@ export default function Login2() {
         }
       } catch (error) {
         console.error("Error during login:", error);
-        setErrorMessage("An error occurred during login.");
+        setErrorMessage("Wrong Email or Password.");
       }
     };
   

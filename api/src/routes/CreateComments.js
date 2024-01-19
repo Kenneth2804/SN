@@ -11,7 +11,8 @@ router.post('/', async (req, res) => {
     })
     const comment = await Comments.create({
     
-      texto
+      texto,
+      userId: finduser.id
 
     })
 
