@@ -6,6 +6,7 @@ const loginuser = require("./Login")
 const home = require("./Home")
 const logout = require("./Logout")
 const getcomments = require("./GetComments")
+const localization = require("./GetCountry")
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.use("/postcomment", postcomment)
 router.use("/loginuser", loginuser)
 router.use("/home", home)
 router.use("/comments", getcomments)
+router.use("/localization", localization)
 
 module.exports = router;

@@ -112,6 +112,7 @@
     border-radius: 10px;
     display: inline-block;
     box-shadow: 7px 4px 23px 0px #2D2D2D;
+    cursor: pointer;
    }
    .submit:hover{
     background: linear-gradient(to right,#515151 ,#837a68);

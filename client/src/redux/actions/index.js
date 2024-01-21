@@ -9,6 +9,7 @@ export const types ={
     GET_COMMENTS: 'GET_COMMENTS',
     CREATE_COMMENT: 'CREATE_COMMENT',
     SET_USER_EMAIL: 'SET_USER_EMAIL',
+    GET_LOCALIZATION_DATA: "GET_LOCALIZATION_DATA",
 }
 
 export const postuser = (payload) =>{
@@ -90,7 +91,7 @@ export const login = (email, password) => {
   };
 
   export const createComment = (payload) => {
-    return async function (dispatch, getState) { // Add getState as a parameter here
+    return async function (dispatch, getState) {
       try {
         const userEmail = getState().userEmail;
   
@@ -107,4 +108,16 @@ export const login = (email, password) => {
       }
     };
   };
-  
+  export const getLocalization = () => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`${URL}localization`);
+            dispatch({ type: types.GET_LOCALIZATION_DATA, payload: response.data });
+            console.log("localización", response)
+            return response;
+        } catch (error) {
+            console.error("Error al obtener la localización:", error);
+        }
+    };
+};
+

@@ -100,29 +100,24 @@
     opacity: 1;
   }
   
-  .submit{
-    background: var(--submit-background-color);
-    background-color: var(--submit-background-color);
-    color: var(--input-background-color);
-    font-family: Trebuchet MS;
-    font-size: 18px;
-    font-weight: 800;
-    font-style: normal;
-    text-decoration: none;
-    padding: 12px 38px;
-    border: 0px solid #000;
-    border-radius: 10px;
-    display: inline-block;
-    box-shadow: 7px 4px 23px 0px #2D2D2D;
-   }
-   .submit:hover{
-    background: linear-gradient(to right,#515151 ,#837a68);
-    background-color: #515151;
-   }
-   .submit:active{
-    transform: scale(0.95);
-   
+  .submitform{
+ margin-top: 30px;
   }
+
+  .selectsearch {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 3px;
+    width: 100%; /* O cualquier otro valor que prefieras */
+    max-width: 350px; /* Ajusta esto según tus necesidades */
+    margin: 0 auto; /* Centra el elemento horizontalmente */
+    display: block; /* Hace que el selector ocupe su propio espacio */
+    outline: none;
+    color: #000000;
+    border-radius: 20px;
+    transition: .3s ease;
+  }
+  
 
 
   @media (max-width: 768px) {

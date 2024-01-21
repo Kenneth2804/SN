@@ -13,6 +13,7 @@ const initial = {
   token: null,
   userEmail: null,
   userEmail2: null,
+  localizationData: null, 
 };
 
 export default function rootReducer(state = initial, action) {
@@ -60,7 +61,11 @@ export default function rootReducer(state = initial, action) {
         userEmail: action.payload,
         userEmail2: action.payload,
       }
-
+      case types.GET_LOCALIZATION_DATA:
+        return {
+          ...state,
+          localizationData: action.payload,
+        };
     default:
       return { ...state };
   }

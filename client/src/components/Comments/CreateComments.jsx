@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createComment } from '../../redux/actions/index';
 import { types } from '../../redux/actions';
-import Popup from '../general/Popup';
-
 import '../../css/inputcreator.css';
 
 export default function CreateComments() {
@@ -31,7 +29,7 @@ export default function CreateComments() {
         placeholder="Escribe un comentario"
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
-        rows={4} // Adjust the number of rows as needed
+        rows={4} 
       />
       <button className="comment-button" onClick={handleCommentSubmit}>
         Enviar comentario
