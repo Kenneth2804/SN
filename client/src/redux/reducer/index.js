@@ -14,6 +14,8 @@ const initial = {
   userEmail: null,
   userEmail2: null,
   localizationData: null, 
+  userProfile: null
+  
 };
 
 export default function rootReducer(state = initial, action) {
@@ -66,6 +68,11 @@ export default function rootReducer(state = initial, action) {
           ...state,
           localizationData: action.payload,
         };
+        case types.PROFILE:
+          return {
+            ...state,
+            userProfile: action.payload,
+          };
     default:
       return { ...state };
   }

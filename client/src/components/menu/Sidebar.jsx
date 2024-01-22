@@ -1,5 +1,6 @@
 import React from 'react';
-import '../../css/sidebar.css'
+import { Link } from 'react-router-dom'; 
+import '../../css/sidebar.css';
 import Logout from './Logout';
 
 function Sidebar({ userData }) {
@@ -7,10 +8,10 @@ function Sidebar({ userData }) {
     <div className="sidebar">
       {userData ? (
         <div>
-          <p>{userData.name}</p>
+          <Link to="/profile">{userData.name}</Link> 
           <p>{userData.email}</p>
           <p><img src={userData.picture} alt="Foto de perfil" /></p>
-          <Logout></Logout>
+          <Logout />
         </div>
       ) : (
         <p>User not found</p>

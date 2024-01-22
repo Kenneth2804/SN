@@ -10,6 +10,7 @@ export const types ={
     CREATE_COMMENT: 'CREATE_COMMENT',
     SET_USER_EMAIL: 'SET_USER_EMAIL',
     GET_LOCALIZATION_DATA: "GET_LOCALIZATION_DATA",
+    PROFILE: "PROFILE"
 }
 
 export const postuser = (payload) =>{
@@ -121,3 +122,25 @@ export const login = (email, password) => {
     };
 };
 
+export const getUserProfile = () => {
+  return async function (dispatch) {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado");
+        return;
+      }
+
+      const response = await axios.get(`${URL}profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch({ type: types.PROFILE, payload: response.data.user });
+      return response;
+    } catch (error) {
+      console.error("Error al obtener el perfil del usuario:", error);
+    }
+  };
+};

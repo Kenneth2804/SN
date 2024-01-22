@@ -5,6 +5,7 @@ import LandingView from './views/LandingView';
 import HomeView from './views/HomeView';
 import Login2 from './components/Login2';
 import LoginView from './views/LoginView';
+import UserProfile from './components/Profile/UserProfile';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <Route path='/' exact element={<LandingView/>}></Route>
     <Route path='/login' exact element={<LoginView/>}></Route>
     <Route path='/home' exact element={<HomeView/>}></Route>
+    <Route path='/profile' exact element={<UserProfile/>}></Route>
   </Routes>
     </div>
     </BrowserRouter>
