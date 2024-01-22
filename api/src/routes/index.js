@@ -1,6 +1,8 @@
 const {Router} = require ("express");
 
 const postusuario = require("./CreateUsers")
+const getid = require("./GetId")
+const profile = require("./UserProfile")
 const postcomment = require("./CreateComments")
 const loginuser = require("./Login")
 const home = require("./Home")
@@ -11,6 +13,8 @@ const localization = require("./GetCountry")
 const router = Router();
 
 router.use("/logout", logout)
+router.use("/profile", profile)
+router.use("/getid", getid)
 router.use("/postuser", postusuario)
 router.use("/postcomment", postcomment)
 router.use("/loginuser", loginuser)

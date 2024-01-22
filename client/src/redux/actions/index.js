@@ -60,10 +60,10 @@ export const login = (email, password) => {
       });
 
       const token = response.data.token;
-      const userEmail = email; // Guarda el correo electrónico en una variable
+      const userEmail = email; 
       localStorage.setItem("token", token);
-      localStorage.setItem("userEmail", userEmail); // Almacena el correo electrónico en localStorage
-      dispatch({ type: types.SET_USER_EMAIL, payload: userEmail }); // Actualiza el estado con el correo electrónico
+      localStorage.setItem("userEmail", userEmail);
+      dispatch({ type: types.SET_USER_EMAIL, payload: userEmail }); 
       dispatch(setAuthToken(token));
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
