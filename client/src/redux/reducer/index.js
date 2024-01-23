@@ -73,6 +73,11 @@ export default function rootReducer(state = initial, action) {
             ...state,
             userProfile: action.payload,
           };
+          case types.LOAD_RANDOM_USERS:
+  return {
+    ...state,
+    allusers: action.payload,
+  };
     default:
       return { ...state };
   }

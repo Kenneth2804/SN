@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import GetComments from './Comments/GetComments';
 import CreateComments from './Comments/CreateComments';
 import Popup from './general/Popup';
+import RandomUsers from './Profile/RandomUsers';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -31,12 +32,24 @@ export default function Home() {
   const closeCreateComments = () => {
     setIsCreateCommentsOpen(false);
   };
+  const styles = {
+    contentLayout: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginright: '20vh'
+    },
+  };
+  
+  // Aplicar estilos al div
 
   return (
     <div>
       <Sidebar userData={homeData} />
       <button onClick={openCreateComments}>Mostrar CreateComments</button>
+        <div style={styles.contentLayout}>
       <GetComments />
+      <RandomUsers/>
+      </div>
       <Popup
         isOpen={isCreateCommentsOpen}
         onClose={closeCreateComments}

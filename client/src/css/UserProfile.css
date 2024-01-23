@@ -1,0 +1,53 @@
+/* UserProfile.css */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #333; /* Set background color for entire page */
+    font-family: 'Arial', sans-serif;
+    color: #000000; /* Set a default text color for better visibility */
+  }
+  
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .user-profile h1 {
+    font-size: 2em;
+  }
+  
+  .user-profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    margin-bottom: 20px;
+  }
+  
+  .comments-section {
+    margin-top: 30px;
+  }
+  
+  .comments-section h2 {
+    font-size: 1.5em;
+  }
+  
+  .comment {
+    background-color: #ffffff; /* Slightly different color for contrast */
+    border: 1px solid #221414;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    max-width: 100vh;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .user-profile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  

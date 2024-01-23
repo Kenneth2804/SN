@@ -13,6 +13,7 @@ export default function CreateComments() {
     dispatch(createComment({ texto: commentText }));
     setCommentText("");
     setIsPopupOpen(true);
+    window.location.reload();
   };
 
   useEffect(() => {

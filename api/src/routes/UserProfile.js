@@ -34,6 +34,8 @@ router.get("/", authenticateToken, isAuthenticated, async (req, res) => {
       email: dbUser.email,
       picture: dbUser.picture,
       comments: userComments,
+      originCountry: dbUser.originCountry,
+      originCity: dbUser.originCity
     };
 
     res.json({ user: userInfo });

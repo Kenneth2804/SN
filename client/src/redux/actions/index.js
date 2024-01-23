@@ -10,7 +10,8 @@ export const types ={
     CREATE_COMMENT: 'CREATE_COMMENT',
     SET_USER_EMAIL: 'SET_USER_EMAIL',
     GET_LOCALIZATION_DATA: "GET_LOCALIZATION_DATA",
-    PROFILE: "PROFILE"
+    PROFILE: "PROFILE",
+    LOAD_RANDOM_USERS:"LOAD_RANDOM_USERS"
 }
 
 export const postuser = (payload) =>{
@@ -144,3 +145,18 @@ export const getUserProfile = () => {
     }
   };
 };
+
+// ... tus otras acciones ...
+
+export const getRandomUsers = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL}getusers`);
+      dispatch({ type: types.LOAD_RANDOM_USERS, payload: response.data });
+      return response;
+    } catch (error) {
+      console.error("Error al obtener usuarios aleatorios:", error);
+    }
+  };
+};
+

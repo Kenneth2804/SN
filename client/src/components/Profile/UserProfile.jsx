@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserProfile } from '../../redux/actions/index'; 
+import "../../css/UserProfile.css"
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -15,16 +16,23 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
-      <h1>Perfil del Usuario</h1>
+    <div className="user-profile">
+<img src={userProfile.picture} alt="Imagen del perfil" />
       <p>Nombre: {userProfile.name}</p>
-      <p>Email: {userProfile.email}</p>
-      <p>Imagen: <img src={userProfile.picture} alt="Imagen del perfil" /></p>
-      <div>
+      <p>{userProfile.originCountry}</p>
+      <p>{userProfile.originCity}</p>
+      
+      <div className="comments-section">
         <h2>Comentarios</h2>
-        {userProfile.comments.map((comment, index) => (
-          <p key={index}>{comment.texto}</p>
-        ))}
+        {userProfile.comments && userProfile.comments.length > 0 ? (
+          userProfile.comments.map((comment, index) => (
+            <div key={index} className="comment">
+              {comment.texto}
+            </div>
+          ))
+        ) : (
+          <p>No tiene contenido</p>
+        )}
       </div>
     </div>
   );
