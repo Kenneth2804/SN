@@ -79,18 +79,27 @@ export const login = (email, password) => {
     type: 'LOGOUT',
   });
 
-  export const getComments = () => {
+  export const getComments = (country = '', city = '') => {
     return async function (dispatch) {
       try {
-        const response = await axios.get(`${URL}comments`);
+        let query = '';
+        if (country || city) {
+          const queryParams = new URLSearchParams();
+          if (country) queryParams.append('country', country);
+          if (city) queryParams.append('city', city);
+          query = `?${queryParams.toString()}`;
+        }
+
+        const response = await axios.get(`${URL}comments${query}`);
         dispatch({ type: types.GET_COMMENTS, payload: response.data });
-        console.log("comentarios", response)
+        console.log("comentarios", response);
         return response;
       } catch (error) {
         console.error("Error al obtener comentarios:", error);
       }
     };
-  };
+};
+
 
   export const createComment = (payload) => {
     return async function (dispatch, getState) {
@@ -145,8 +154,6 @@ export const getUserProfile = () => {
     }
   };
 };
-
-// ... tus otras acciones ...
 
 export const getRandomUsers = () => {
   return async function (dispatch) {
