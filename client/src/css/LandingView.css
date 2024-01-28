@@ -108,10 +108,10 @@
     font-size: 16px;
     font-weight: bold;
     padding: 6px 3px;
-    width: 100%; /* O cualquier otro valor que prefieras */
-    max-width: 350px; /* Ajusta esto según tus necesidades */
-    margin: 0 auto; /* Centra el elemento horizontalmente */
-    display: block; /* Hace que el selector ocupe su propio espacio */
+    width: 100%; 
+    max-width: 350px; 
+    margin: 0 auto; 
+    display: block;
     outline: none;
     color: #000000;
     border-radius: 20px;

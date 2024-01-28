@@ -7,6 +7,7 @@ import GetComments from './Comments/GetComments';
 import CreateComments from './Comments/CreateComments';
 import Popup from './general/Popup';
 import RandomUsers from './Profile/RandomUsers';
+import '../css/createcomments.css'
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,12 +41,10 @@ export default function Home() {
     },
   };
   
-  // Aplicar estilos al div
-
   return (
     <div>
       <Sidebar userData={homeData} />
-      <button onClick={openCreateComments}>Mostrar CreateComments</button>
+      <button className='createcomment' onClick={openCreateComments}>Mostrar CreateComments</button>
         <div style={styles.contentLayout}>
       <GetComments />
       <RandomUsers/>

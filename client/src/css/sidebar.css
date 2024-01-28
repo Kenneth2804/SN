@@ -1,23 +1,70 @@
-/* sidebar.css */
-
 .sidebar {
-  width: 250px;
+  width: 20%;
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
-  background-color: #a58484;
+  background-color: var(--main-background-color);
   overflow-x: hidden;
   padding-top: 20px;
+  border: 1px solid black;
+}
+
+.profilename {
+  padding: 16vh;
+  text-align: center;
 }
 
 .sidebar p {
   padding: 10px;
   text-align: center;
-  
 }
 
 .sidebar img {
-  max-width: 20%;
+  max-width: 60%; 
   height: auto;
+}
+
+.bn32 {
+  margin-top: 7vh; /* Ajustado para ser relativo */
+  margin-left: 12vh; /* Ajustado para ser relativo */
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #832222; 
+  border: #FF69B4; 
+  border-radius: 20px;
+  font-size: 16px;
+  color: #FFFFFF; 
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bn32:hover {
+  background-color: #ea4040; 
+  transform: scale(1.05); 
+}
+
+/* Consultas de medios para diferentes tamaños de pantalla */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 35%; /* Más ancho en pantallas más pequeñas */
+  }
+
+  .bn32 {
+    margin-top: 10vh;
+    margin-left: 4vh;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sidebar {
+    width: 50%; /* Aún más ancho en pantallas muy pequeñas */
+  }
+
+  .bn32 {
+    margin-top: 15vh;
+    margin-left: 6vh;
+  }
 }

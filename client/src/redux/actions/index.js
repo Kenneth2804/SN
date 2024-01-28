@@ -11,8 +11,16 @@ export const types ={
     SET_USER_EMAIL: 'SET_USER_EMAIL',
     GET_LOCALIZATION_DATA: "GET_LOCALIZATION_DATA",
     PROFILE: "PROFILE",
-    LOAD_RANDOM_USERS:"LOAD_RANDOM_USERS"
+    LOAD_RANDOM_USERS:"LOAD_RANDOM_USERS",
+    SET_USER: 'SET_USER',
 }
+export const setUser = (user) => {
+  return {
+    type: types.SET_USER,
+    payload: user,
+  };
+};
+
 
 export const postuser = (payload) =>{
     return async function (dispatch){
@@ -167,3 +175,19 @@ export const getRandomUsers = () => {
   };
 };
 
+export function getid(id) {
+  return async (dispatch) => {
+    try {
+      const data = await axios.get(`/getid/${id}`);
+
+      return dispatch({
+        type: "GET_ID",
+        
+        payload: data.data,
+        
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

@@ -118,7 +118,7 @@ export default function Login() {
                 <div className="submitform">
                 <button className="submit" type="submit">Register</button>
                 </div>
-                <p><h2>or</h2></p>
+                <p className="or"><h2>or</h2></p>
                 <Link to={"/login"}>
                     <button className="submit" type="submit">Login</button>
                 </Link>

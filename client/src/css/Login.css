@@ -113,6 +113,9 @@
     display: inline-block;
     box-shadow: 7px 4px 23px 0px #2D2D2D;
     cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
    }
    .submit:hover{
     background: linear-gradient(to right,#515151 ,#837a68);
@@ -122,8 +125,33 @@
     transform: scale(0.95);
    
   }
+  .subtitle {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .inputField {
+    margin: 0 auto 20px auto; 
+    display: flex;
+    justify-content: center;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px; 
+  }
 
+  .or{
+    text-align: center;
+  }
 
+  .terms{
+    margin: 0 auto 20px auto; 
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+  }
   @media (max-width: 768px) {
     .container {
       flex-direction: column;

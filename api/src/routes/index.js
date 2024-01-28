@@ -1,6 +1,7 @@
 const {Router} = require ("express");
 
 const postusuario = require("./CreateUsers")
+const profiles = require("./Profiles/profiles")
 const getid = require("./GetId")
 const profile = require("./UserProfile")
 const postcomment = require("./CreateComments")
@@ -15,6 +16,7 @@ const router = Router();
 
 router.use("/logout", logout)
 router.use("/profile", profile)
+router.use("/profiles", profiles)
 router.use("/getid", getid)
 router.use("/postuser", postusuario)
 router.use("/postcomment", postcomment)

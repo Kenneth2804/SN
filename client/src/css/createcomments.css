@@ -1,0 +1,30 @@
+.createcomment {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 15px;
+    border-radius: 10px; 
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
+  }
+  
+  .createcomment:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-2px); 
+  }
+
+  @media screen and (max-width: 768px) {
+    .createcomment {
+      margin: 20px 10px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .createcomment {
+      flex-direction: column; 
+      padding: 10px; 
+    }
+  }
+  

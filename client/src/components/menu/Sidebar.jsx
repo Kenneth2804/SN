@@ -8,7 +8,7 @@ function Sidebar({ userData }) {
     <div className="sidebar">
       {userData ? (
         <div>
-          <Link to="/profile">{userData.name}</Link> 
+          <Link className='profilename' to="/profile">{userData.name}</Link> 
           <p>{userData.email}</p>
           <p><img src={userData.picture} alt="Foto de perfil" /></p>
           <Logout />

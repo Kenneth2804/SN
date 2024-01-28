@@ -37,6 +37,11 @@ export default function rootReducer(state = initial, action) {
         ...state,
         authToken: action.payload,
       };
+      case types.SET_USER:
+        return {
+          ...state,
+          user: action.payload,
+        };
 
     case types.LOGOUT:
       localStorage.removeItem("token");

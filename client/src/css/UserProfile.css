@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #333; /* Set background color for entire page */
+    background-color: var(--main-background-color); /* Set background color for entire page */
     font-family: 'Arial', sans-serif;
     color: #000000; /* Set a default text color for better visibility */
   }
