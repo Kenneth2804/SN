@@ -1,11 +1,10 @@
-/* UserProfile.css */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: var(--main-background-color); /* Set background color for entire page */
+    background: linear-gradient(to right, #031517, #163e48, #041c1f);
     font-family: 'Arial', sans-serif;
-    color: #000000; /* Set a default text color for better visibility */
+    color: #000000; 
   }
   
   .user-profile {
@@ -36,7 +35,7 @@ html, body {
   }
   
   .comment {
-    background-color: #ffffff; /* Slightly different color for contrast */
+    background-color: #ffffff;
     border: 1px solid #221414;
     padding: 10px;
     margin-top: 10px;

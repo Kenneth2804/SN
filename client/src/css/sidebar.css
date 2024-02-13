@@ -4,12 +4,11 @@
   left: 0;
   top: 0;
   height: 100%;
-  background-color: var(--main-background-color);
+  background: linear-gradient(to bottom, #0d1920, #2f5767, #0a1217);
   overflow-x: hidden;
   padding-top: 20px;
   border: 1px solid black;
 }
-
 .profilename {
   padding: 16vh;
   text-align: center;

@@ -1,6 +1,7 @@
 .App {
   min-height: 100vh;
-  background-color: var(--main-background-color);
+  background: linear-gradient(to right, #031517, #163e48, #041c1f);
+  background-size: 100% 100%;
 }
 * {
   margin: 0;
