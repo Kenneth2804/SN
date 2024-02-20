@@ -122,9 +122,9 @@ export default function Login() {
                 <Link to={"/login"}>
                     <button className="submit" type="submit">Login</button>
                 </Link>
-                <Link to="/">
+                
                     <p className="terms">Terms and conditions</p>
-                </Link>
+          
             </form>
         </div>
     );

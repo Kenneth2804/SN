@@ -102,7 +102,7 @@
   
   .submitform{
  margin-top: 30px;
-  }
+   }
 
   .selectsearch {
     font-size: 16px;
@@ -118,7 +118,9 @@
     transition: .3s ease;
   }
   
-
+.terms{
+  color: #ffffff;
+  }
 
   @media (max-width: 768px) {
     .container {
