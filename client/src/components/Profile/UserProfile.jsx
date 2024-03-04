@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserProfile } from '../../redux/actions/index'; 
 import "../../css/UserProfile.css"
+import EditProfile from './EditProfile.jsx';
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,9 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
+      <Link to={"/edit"}>
+     <p>Editar perfil</p>
+      </Link>
 <img src={userProfile.picture} alt="Imagen del perfil" />
       <p>Nombre: {userProfile.name}</p>
       <p>{userProfile.originCountry}</p>

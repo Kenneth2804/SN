@@ -9,11 +9,13 @@ export default function LoginPage() {
     return (
       <div className='landingviewClass'>
         <div className='container'>
-          <div className='landingPic'></div>
+          <div className='landingPic'>
+
           <div className='inputContainer'>   
+          <Login2></Login2>                 
+          </div>
 
           
-          <Login2></Login2>                 
               </div>
         </div>
 

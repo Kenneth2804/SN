@@ -11,6 +11,7 @@ const logout = require("./Logout")
 const getcomments = require("./GetComments")
 const localization = require("./GetCountry")
 const getusers = require("./GetUsers")
+const editpicture = require("./Profiles/editprofilepic")
 
 const router = Router();
 
@@ -25,5 +26,6 @@ router.use("/home", home)
 router.use("/comments", getcomments)
 router.use("/localization", localization)
 router.use("/getusers", getusers)
+router.use("/editpicture", editpicture)
 
 module.exports = router;

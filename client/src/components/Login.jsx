@@ -14,7 +14,7 @@ export default function Login() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [redirect, setRedirect] = useState(false);
-  const localizationData = useSelector(state => state.localizationData); // Asumiendo que así accedes a tus datos en el store
+  const localizationData = useSelector(state => state.localizationData); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

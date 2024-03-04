@@ -77,6 +77,8 @@ export default function rootReducer(state = initial, action) {
           return {
             ...state,
             userProfile: action.payload,
+            isLoggedIn: true, 
+            user: action.payload,
           };
           case types.LOAD_RANDOM_USERS:
   return {

@@ -191,3 +191,34 @@ export function getid(id) {
     }
   };
 }
+export const updateProfile = (userData, file) => {
+  return async function (dispatch) {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado");
+        return;
+      }
+      let formData = new FormData();
+      formData.append("name", userData.name);
+      if (file) {
+        formData.append("picture", file);
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.put(`${URL}editpicture`, formData, config);
+
+      dispatch({ type: types.PROFILE, payload: response.data });
+
+      console.log("Perfil actualizado exitosamente", response);
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+    }
+  };
+};

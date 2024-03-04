@@ -12,29 +12,8 @@
     min-height: 100vh;
     width: 100%;   
 }
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
-  }
-  
-  .landingPic {
-    background-image: url("../images/loginviewPage6.png");
-    min-height: 100vh; 
-    width: 50%;
-    background-size: cover;
-    background-position: center;
-  }
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%; 
-    margin-right: 4vh;
-    
-  }
-  
+ 
+ 
   .inputField {
     margin-bottom: 20px;
   }
@@ -79,6 +58,7 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 30px;
+    background-color: #2D2D2D;
   }
 
   .landingInfo h2 {

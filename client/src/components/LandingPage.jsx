@@ -9,11 +9,13 @@ export default function LandingPage() {
     return (
       <div className='landingviewClass'>
         <div className='container'>
-          <div className='landingPic'></div>
+          <div className='landingPic'>
           <div className='inputContainer'>   
+          <Login></Login>                 
+
+          </div>
 
           
-          <Login></Login>                 
               </div>
         </div>
         <LandingInfo/>
