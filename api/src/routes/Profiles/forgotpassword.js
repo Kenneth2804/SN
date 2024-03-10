@@ -1,9 +1,9 @@
 const express = require('express');
-const {User, Comments} = require ("../../db.js");
+const {User} = require ("../../db.js");
 const { sendResetPasswordEmail } = require('../../controllers/nodemailer.js');
-const bcrypt = require('bcrypt');
+
 const router = express.Router();
-const crypto = require('crypto');
+
 
 router.use(express.json());
 
