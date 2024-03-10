@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/actions';
+import { MdLogout } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Logout = () => {
@@ -10,24 +11,22 @@ const Logout = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('usuario'); // Borra la información del usuario
-    dispatch(logout()); // Llama a tu acción de logout si es necesario
+    localStorage.removeItem('usuario');
+    dispatch(logout());
 
-    // Si la ubicación actual es "/" (página de inicio), redirige al usuario a la página de inicio
     if (location.pathname === '/') {
       navigate('/');
     } else {
-      // Si la ubicación actual es "/home" (u otra ruta), no permitas retroceder
-      // Puedes mostrar un mensaje de error o redirigir a la página de inicio
+    
       navigate('/');
     }
   };
 
   return (
     <div>
-      <button onClick={handleLogout} className='bn32'>
-        Cerrar sesión
-      </button>
+      <a onClick={handleLogout} className='logout-link '>
+      <MdLogout style={{ color: 'red', fontSize: '30px', cursor:'pointer' }}/>
+      </a>
     </div>
   );
 };

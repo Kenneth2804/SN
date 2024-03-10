@@ -1,23 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; 
-import '../../css/sidebar.css';
+import React from 'react'
+import { useRef } from 'react'
+import {Link} from "react-router-dom"
+import {FaBars, FaTimes, FaHome } from "react-icons/fa"
 import Logout from './Logout';
+import "../../css/sidebar.css"
 
-function Sidebar({ userData }) {
-  return (
-    <div className="sidebar">
-      {userData ? (
-        <div>
-          <Link className='profilename' to="/profile">{userData.name}</Link> 
-          <p>{userData.email}</p>
-          <p><img src={userData.picture} alt="Foto de perfil" /></p>
-          <Logout />
-        </div>
-      ) : (
-        <p>User not found</p>
-      )}
-    </div>
-  );
+export const Sidebar = ({ userData }) => {
+    const navRef = useRef();
+
+    const showNavbar = () => {
+        navRef.current.classList.toggle("move_nav");
+    }
+
+    return (
+        <header>
+            <button className='nava' onClick={showNavbar}>
+                <FaBars />
+            </button>
+            <nav ref={navRef}>
+                <button className='nava close' onClick={showNavbar}>
+                    <FaTimes />
+                </button>
+                {userData ? (
+                    <React.Fragment>
+                        <a><img src={userData?.picture} alt="Profile" className='profilepic' /></a>
+                        <Link className='profilename' to="/profile" style={{ fontWeight: 'bold' }}>{userData.name}</Link>
+                        <Link to={"/home"}><FaHome style={{ color: 'black', fontSize: '30px' }}/></Link>
+                        <a><Logout /></a> 
+                    </React.Fragment>
+                ) : (
+                    <p>User not found</p>
+                )}
+            </nav>
+        </header>
+    )
 }
-
-export default Sidebar;

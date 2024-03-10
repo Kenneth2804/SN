@@ -11,8 +11,7 @@
     align-items: center;
     z-index: 999; 
   }
-  
-  /* Estilo para el popup */
+
   .popup {
     background-color: rgba(255, 255, 255, 0);
     border-radius: 8px;

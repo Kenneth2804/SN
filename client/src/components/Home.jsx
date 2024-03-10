@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { home } from '../redux/actions/index';
-import Sidebar from './menu/Sidebar';
+import {Sidebar} from './menu/Sidebar.jsx';
 import { useNavigate } from 'react-router-dom'; 
 import GetComments from './Comments/GetComments';
 import CreateComments from './Comments/CreateComments';
@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div>
       <Sidebar userData={homeData} />
-      <button className='createcomment' onClick={openCreateComments}>Mostrar CreateComments</button>
+      <button className='createcomment' onClick={openCreateComments}>CREA TU COMENTARIO</button>
         <div style={styles.contentLayout}>
       <GetComments />
       <RandomUsers/>

@@ -81,7 +81,7 @@ export default function GetComments() {
               <p className="comment-name">
                 {comment.user.originCountry}, {comment.user.originCity} 
               </p>
-              <p className="comment-text">{comment.texto}</p>
+              <p className="comment-text" >{comment.texto}</p>
             </div>
           ))
         ) : (

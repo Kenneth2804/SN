@@ -1,6 +1,8 @@
-  
+body {
+  font-family: 'Montserrat', sans-serif;
+}
     .landingPic {
-      background-image: url("../images/p1.png");
+      background-image: url("../images/p9.jpg");
       min-height: 100vh; 
    
       background-size: cover;
@@ -21,7 +23,7 @@
     transition: .3s ease;
   }
   .inputContainer {
-    background-color: rgba(53, 40, 40, 0.8);
+    background-color: rgba(53, 40, 40, 0.9); 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,6 +33,19 @@
 .terms{
   color: #ffffff;
   }
+  .title {
+    text-align: center;
+    margin-bottom: 20px; 
+    color: white;
+  }
+
+  .subtitle {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
 
   @media (max-width: 768px) {
     .container {

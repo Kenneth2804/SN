@@ -18,8 +18,7 @@ export default function LandingPage() {
           
               </div>
         </div>
-        <LandingInfo/>
-        <LandingFooter/>
+
       </div>
     )
   }

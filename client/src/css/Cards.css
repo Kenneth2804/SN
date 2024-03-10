@@ -1,29 +1,55 @@
 .comment-container {
   display: flex;
-  align-items: center;
-  margin: 60px;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  margin-left: calc(65% + 60px);
-  width: calc(80% - 120px);
+  flex-wrap: wrap;
+  justify-content: center; 
+  align-items: flex-start; 
+  padding: 60px; 
+  gap: 20px; 
+  position: relative;
 }
 
 .comment-card {
+  flex: 1; 
+  max-width: calc(50% - 40px); 
+  min-width: 300px;
   width: 100%;
   max-width: 800px;
   min-width: 300px;
   height: auto;
   border-radius: 10px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.699) 0%, rgb(255, 255, 255) 100%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.699) 0%, rgb(242, 227, 153) 100%);
   box-shadow: 1px 1px 1px rgb(0, 0, 0);
   overflow: hidden;
   text-align: center;
   transition: all 0.25s;
-  border: 1px solid #ccc;
+  border: 10px solid #403B31;
   padding: 20px;
   margin: 10px 0;
 }
+.comment-card::before {
+  content: '';
+  position: absolute;
+  left: -5%;
+  top: 10%;
+  height: 15px;
+  width: 15px; 
+  background-color: #465E6C; 
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px white; 
+}
+
+.comment-card::after {
+  content: '';
+  position: absolute;
+  left: -5%;
+  top: 30%; 
+  height: 15px;
+  width: 15px;
+  background-color: #465E6C; 
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px white; 
+}
+
 
 .comment-card:hover {
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.644);
@@ -60,21 +86,17 @@
 
 @media screen and (max-width: 768px) {
   .comment-container {
-    margin-left: calc(35% + 60px);
-    width: calc(65% - 120px);
-    .comment-card {
-      max-width: 600px;
-    }
+    padding: 30px; 
+  }
+  .comment-card {
+    max-width: calc(100% - 40px);
   }
 }
-
 @media screen and (max-width: 480px) {
   .comment-container {
-    margin: 20px;
-    margin-left: calc(50% + 20px);
-    width: calc(50% - 40px);
-    .comment-card {
-      max-width: 100%;
-    }
+    padding: 20px;
+  }
+  .comment-card {
+    max-width: 100%;
   }
 }

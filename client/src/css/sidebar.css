@@ -1,69 +1,92 @@
-.sidebar {
-  width: 20%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background: linear-gradient(to bottom, #0d1920, #2f5767, #0a1217);
-  overflow-x: hidden;
-  padding-top: 20px;
-  border: 1px solid black;
-}
-.profilename {
-  padding: 16vh;
-  text-align: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
 
-.sidebar p {
-  padding: 10px;
-  text-align: center;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+:root{
+    --mainColor: #ffffff;
+    --mainColorLight: #000000;
+    --secondaryColor: white;
+    --textColor: rgb(12,12,12);
 }
 
-.sidebar img {
-  max-width: 60%; 
-  height: auto;
+header{
+    background-color: #D5B6A5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
 }
 
-.bn32 {
-  margin-top: 7vh; /* Ajustado para ser relativo */
-  margin-left: 12vh; /* Ajustado para ser relativo */
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #832222; 
-  border: #FF69B4; 
-  border-radius: 20px;
-  font-size: 16px;
-  color: #FFFFFF; 
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+nav a {
+    margin: 0 10rem;
+    color: var(--textColor);
+    text-decoration: none;
 }
 
-.bn32:hover {
-  background-color: #ea4040; 
-  transform: scale(1.05); 
+nav a:hover{
+    color: var(--secondaryColor)
 }
 
-/* Consultas de medios para diferentes tamaños de pantalla */
-@media screen and (max-width: 768px) {
-  .sidebar {
-    width: 35%; /* Más ancho en pantallas más pequeñas */
-  }
-
-  .bn32 {
-    margin-top: 10vh;
-    margin-left: 4vh;
-  }
+header .nava{
+    margin-right: -6%;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--textColor);
+    visibility: hidden;
+    opacity: 0;
+    font-size: 1.8rem;
 }
 
-@media screen and (max-width: 480px) {
-  .sidebar {
-    width: 50%; /* Aún más ancho en pantallas muy pequeñas */
-  }
+header div,
+nav{
+    display: flex;
+    align-items: center;
+}
+.profilepic{
+  height: 60px;
+  width: auto;
 
-  .bn32 {
-    margin-top: 15vh;
-    margin-left: 6vh;
-  }
+}
+
+@media only screen and (max-width: 35em){
+ header .nava{
+    visibility: visible;
+    opacity: 1;
+ }
+
+ 
+ header nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width:  100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: gray;
+    transition: 1s;
+    transform: translateY(-100vh);    
+ }
+
+ header .move_nav{
+    transform: none;
+ }
+ nav .close{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+ }
+ nav a {
+    font-size: 1.5rem;
+ }
 }

@@ -12,6 +12,8 @@ const getcomments = require("./GetComments")
 const localization = require("./GetCountry")
 const getusers = require("./GetUsers")
 const editpicture = require("./Profiles/editprofilepic")
+const forgotpassword = require("./Profiles/forgotpassword")
+const resetpassword = require("./Profiles/resetpassword")
 
 const router = Router();
 
@@ -27,5 +29,7 @@ router.use("/comments", getcomments)
 router.use("/localization", localization)
 router.use("/getusers", getusers)
 router.use("/editpicture", editpicture)
+router.use("/forgotpassword", forgotpassword)
+router.use("/resetpassword", resetpassword)
 
 module.exports = router;

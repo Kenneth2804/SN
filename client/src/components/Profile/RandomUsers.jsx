@@ -13,9 +13,8 @@ const RandomUsers = () => {
     dispatch(getRandomUsers());
   }, [dispatch]);
 
-  // Función para manejar el clic en la imagen
   const handleUserClick = (userId) => {
-    navigate(`/profiles/${userId}`); // Redirige al perfil del usuario
+    navigate(`/profiles/${userId}`); 
   };
 
   return (
