@@ -14,7 +14,9 @@ const initial = {
   userEmail: null,
   userEmail2: null,
   localizationData: null, 
-  userProfile: null
+  userProfile: null,
+  resetPasswordStatus: null,
+  resetPasswordError: null,
   
 };
 
@@ -85,6 +87,25 @@ export default function rootReducer(state = initial, action) {
     ...state,
     allusers: action.payload,
   };
+  case types.REQUEST_PASSWORD_RESET:
+
+    return {
+      ...state,
+      resetPasswordStatus: 'pending',
+      resetPasswordError: null,
+    };
+  case types.RESET_PASSWORD_SUCCESS:
+    return {
+      ...state,
+      resetPasswordStatus: 'success',
+      resetPasswordError: null,
+    };
+  case types.RESET_PASSWORD_FAILURE:
+    return {
+      ...state,
+      resetPasswordStatus: 'failure',
+      resetPasswordError: action.payload,
+    };
     default:
       return { ...state };
   }

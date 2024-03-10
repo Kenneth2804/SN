@@ -122,8 +122,9 @@ export default function Login() {
                 <Link to={"/login"}>
                     <button className="submit" type="submit">Login</button>
                 </Link>
-                
-                    <p className="terms">Terms and conditions</p>
+                <Link to={"/forgotpassword"}>
+                    <p className="terms">Forget your password?</p>
+                </Link>
           
             </form>
         </div>

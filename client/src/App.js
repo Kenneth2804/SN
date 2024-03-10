@@ -8,6 +8,7 @@ import LoginView from './views/LoginView';
 import UserProfile from './components/Profile/UserProfile';
 import OtherProfiles from './components/Profile/OtherProfiles';
 import EditProfile from './components/Profile/EditProfile';
+import ForgotPassword from './components/menu/ForgotPassword';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     <Route path='/profile' exact element={<UserProfile/>}></Route>
     <Route path='/profiles/:id' exact element={<OtherProfiles/>}></Route>
     <Route path='/edit' exact element={<EditProfile></EditProfile>}></Route>
+    <Route path='/forgotpassword' exact element={<ForgotPassword></ForgotPassword>}></Route>
   </Routes>
     </div>
     </BrowserRouter>

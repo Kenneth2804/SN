@@ -13,6 +13,9 @@ export const types ={
     PROFILE: "PROFILE",
     LOAD_RANDOM_USERS:"LOAD_RANDOM_USERS",
     SET_USER: 'SET_USER',
+    REQUEST_PASSWORD_RESET: "REQUEST_PASSWORD_RESET",
+    RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS",
+    RESET_PASSWORD_FAILURE: "RESET_PASSWORD_FAILURE",
 }
 export const setUser = (user) => {
   return {
@@ -222,3 +225,35 @@ export const updateProfile = (userData, file) => {
     }
   };
 };
+
+export const requestPasswordReset = (email) => {
+  return async function (dispatch) {
+    try {  
+      const response = await axios.post(`${URL}forgotpassword`, { email });
+      console.log("Solicitud de restablecimiento de contraseña enviada", response.data);
+    } catch (error) {
+      console.error("Error al solicitar el restablecimiento de contraseña:", error);
+ 
+      dispatch({ type: types.RESET_PASSWORD_FAILURE });
+    }
+  };
+};
+
+export const resetPassword = (email, verificationCode, newPassword) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`${URL}resetpassword`, {
+        email,
+        verificationCode,
+        newPassword,
+      });
+      console.log("Contraseña actualizada con éxito", response.data);
+      dispatch({ type: types.RESET_PASSWORD_SUCCESS });
+    } catch (error) {
+      console.error("Error al actualizar la contraseña:", error);
+      dispatch({ type: types.RESET_PASSWORD_FAILURE });
+    }
+  };
+};
+
+
