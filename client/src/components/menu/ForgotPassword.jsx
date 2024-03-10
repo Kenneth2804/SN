@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { requestPasswordReset, resetPassword } from "../../redux/actions/index.js"; 
 import { Link, useNavigate } from "react-router-dom";
+import "../../css/forgotpassword.css";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -64,6 +65,7 @@ export default function ForgotPassword() {
         </div>
         <button className="submit" type="submit">Send Code</button>
       </form>
+      <br></br>
 
       <form onSubmit={handleResetPassword}>
         <div className="inputField">

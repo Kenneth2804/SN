@@ -75,6 +75,9 @@ export default function Login2() {
             <button className="submit" type="submit">
               Login
             </button>
+            <Link to={"/forgotpassword"}>
+                    <p className="terms">Forgot your password?</p>
+                </Link>
   
             {errorMessage && (
               <div className="error-message">{errorMessage}</div>

@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Logout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation(); // Obtenemos la ubicación actual
+  const location = useLocation(); 
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -15,17 +15,17 @@ const Logout = () => {
     dispatch(logout());
 
     if (location.pathname === '/') {
-      navigate('/');
+      window.location.reload();
     } else {
-    
-      navigate('/');
+      navigate('/', {replace: true, state: {}});
+      window.location.reload(); 
     }
   };
 
   return (
     <div>
-      <a onClick={handleLogout} className='logout-link '>
-      <MdLogout style={{ color: 'red', fontSize: '30px', cursor:'pointer' }}/>
+      <a onClick={handleLogout} className='logout-link'>
+        <MdLogout style={{ color: 'red', fontSize: '30px', cursor:'pointer' }}/>
       </a>
     </div>
   );

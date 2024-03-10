@@ -123,7 +123,7 @@ export default function Login() {
                     <button className="submit" type="submit">Login</button>
                 </Link>
                 <Link to={"/forgotpassword"}>
-                    <p className="terms">Forget your password?</p>
+                    <p className="terms">Forgot your password?</p>
                 </Link>
           
             </form>
