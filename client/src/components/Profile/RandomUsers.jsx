@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomUsers } from '../../redux/actions/index';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import "../../css/randomuser.css";
 
 const RandomUsers = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Hook useNavigate
+  const navigate = useNavigate(); 
   const allusers = useSelector(state => state.allusers);
 
   useEffect(() => {
