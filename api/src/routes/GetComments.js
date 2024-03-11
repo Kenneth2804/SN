@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
         let queryOptions = {
             include: [{
                 model: User,
-                attributes: ['name', 'originCountry', 'originCity'],
+                attributes: ['name', 'originCountry', 'originCity', 'picture'],
                 where: {}
             }],
             order: [['createdAt', 'DESC']]

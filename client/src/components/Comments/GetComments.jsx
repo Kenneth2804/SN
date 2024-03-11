@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getComments, getLocalization } from '../../redux/actions/index';
+import { useNavigate } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
 import Select from 'react-select';
 import '../../css/Cards.css';
@@ -12,6 +13,8 @@ export default function GetComments() {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.allcoment);
   const localizationData = useSelector((state) => state.localizationData);
+  const allusers = useSelector(state => state.allusers);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     dispatch(getLocalization());
@@ -47,6 +50,10 @@ export default function GetComments() {
     ? localizationData.find(loc => loc.country === selectedCountry.value)?.cities.map(city => ({ value: city, label: city })) 
     : [];
 
+    const handleUserClick = (userId) => {
+      navigate(`/profiles/${userId}`); 
+    };
+
   return (
     <div>
       
@@ -77,6 +84,8 @@ export default function GetComments() {
         {comments && comments.length > 0 ? (
           comments.map((comment) => (
             <div key={comment.id} className="comment-card">
+             <img src={comment.user.picture} alt={`Imagen de ${comment.user.name}`} className="cardpicture" />
+   
               <strong className="comment-name">{comment.user.name}</strong>
               <p className="comment-name">
                 {comment.user.originCountry}, {comment.user.originCity} 
