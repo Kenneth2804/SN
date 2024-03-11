@@ -23,7 +23,7 @@ header{
 }
 
 nav a {
-    margin: 0 10rem;
+    margin: 5rem;
     color: var(--textColor);
     text-decoration: none;
 }
@@ -33,7 +33,7 @@ nav a:hover{
 }
 
 header .nava{
-    margin-right: -6%;
+    margin-right: -30%;
     cursor: pointer;
     background: transparent;
     border: none;

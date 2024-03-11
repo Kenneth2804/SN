@@ -4,16 +4,17 @@ const {User, Comments} = require ("../db.js");
 const router = Router()
 
 router.post('/', async (req, res) => {
-  let { email, commentname,  texto, themeofcomment} = req.body
+  let { email, texto, backgroundColor, borderColor, borderWidth } = req.body
   try {
     const finduser = await User.findOne({
       where: { email: email },
     })
     const comment = await Comments.create({
-    
       texto,
+      backgroundColor,
+      borderColor,
+      borderWidth,
       userId: finduser.id
-
     })
 
     finduser.addComments(comment)

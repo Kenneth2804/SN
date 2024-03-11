@@ -13,11 +13,18 @@ module.exports = (sequelize) => {
            type: DataTypes.TEXT,
            allowNull: true 
         },
- /*        imagetoshre:{
-            type: DataTypes.TEXT,
-            allowNull: true
-        } */
-
+        backgroundColor: {
+            type: DataTypes.STRING,
+            allowNull: true, 
+         },
+         borderColor: {
+            type: DataTypes.STRING,
+            allowNull: true, 
+         },
+         borderWidth: {
+            type: DataTypes.STRING,
+            allowNull: true, 
+         },
      
     })
 }
