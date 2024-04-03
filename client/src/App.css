@@ -1,14 +1,10 @@
 .App {
   min-height: 100vh;
-  background: linear-gradient(to right, #031517, #163e48, #041c1f);
+  background: rgb(17, 14, 14);
   background-size: 100% 100%;
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body, html {
-  height: 100%;
 }

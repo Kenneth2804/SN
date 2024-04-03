@@ -7,3 +7,8 @@
     text-decoration: none;
     list-style: none;
 }
+@media (max-width: 768px) {
+    .randompic, .piclist {
+        display: none;
+    }
+}

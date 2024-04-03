@@ -58,8 +58,8 @@ export default function EditProfile() {
             id="name"
             value={name}
             onChange={handleNameChange}
-            disabled={!isNameEditable} // Se desactiva si isNameEditable es falso
-          />
+            disabled={!isNameEditable} 
+                      />
           <button type="button" onClick={toggleNameEditability}>
             {isNameEditable ? "Bloquear" : "Editar"} Nombre
           </button>

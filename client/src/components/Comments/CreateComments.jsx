@@ -25,13 +25,20 @@ export default function CreateComments() {
 
   return (
     <div className="create-comments-container">
-      <textarea
-        className="comment-input"
+    <div className='post-it'>
+    <div class="to-from">
+    <p>To: <span contenteditable="true">Nombre</span></p>
+    <p>From: <span contenteditable="true">Tu Nombre</span></p>
+  </div>
+     <textarea
+    
         placeholder="Escribe un comentario"
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
         rows={4} 
-      />
+      ></textarea> 
+    </div>
+    
       <button className="comment-button" onClick={handleCommentSubmit}>
         Enviar comentario
       </button>

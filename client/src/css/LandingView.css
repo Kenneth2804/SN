@@ -46,32 +46,3 @@ body {
     color: white;
   }
   
-
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  
-    .landingPic {
-      display: none;
-    }
-  
-    .inputContainer {
-      width: 100%; 
-    }
-  
-    .inputField input {
-      width: 25%; 
-      margin: 0 auto; 
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none; 
-      color: var(--main-text-color);
-    }
-  }
-
-  
-
-
-  

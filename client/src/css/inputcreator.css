@@ -6,24 +6,45 @@
     padding: 100px;
     border-radius: 16px; 
     margin-bottom: 20px;
-    background-color: #fff; 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    background-color: #ffffff00; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.0), 0 1px 2px rgba(0, 0, 0, 0.06);
     max-width: 500px; 
     width: 100%;
 }
 
-.comment-input {
-    width: calc(100% - -100px);
-    border: 1px solid #13c8f5; 
-    padding: 16px;
-    margin-bottom: 10px; 
-    border-radius: 21px; 
-    outline: none;
-    background-color: #0b0d0f;
-    color: #f9f9f9; 
-    font-size: 16px; 
-    box-sizing: border-box;
+  
+  .post-it {
+    position: relative;
+    width: 70vh;
+    height: 70vh;
+    background-color: #fdfd86;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    padding: 20px 10px 10px 10px;
+    margin: 20px;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-size: 25px;
+    line-height: 1.5;
+    transform: rotate(-5deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .post-it textarea {
+    background-color: #fdfd86; 
+    font-size: 20px;
+    width: 68vh;
+    height: 68vh;
+    border: none;
 }
+  
+  .content, .to-from p span {
+    flex-grow: 1;
+    outline: none;
+  }
+  
+  .to-from p {
+    margin: px 0; 
+  }
 
 .comment-button {
     background-color: #1da1f2; 
@@ -39,4 +60,29 @@
 
 .comment-button:hover {
     background-color: #1991db; 
+}
+@media (max-width: 768px) {
+  .create-comments-container {
+      padding: 50px;
+  }
+
+  .post-it, .post-it textarea {
+      width: 90vw;
+      height: 90vw; 
+  }
+}
+
+@media (max-width: 480px) {
+  .create-comments-container {
+      padding: 20px; 
+  }
+
+  .post-it {
+      font-size: 18px; 
+      padding: 15px 5px 5px 5px;
+  }
+
+  .post-it textarea {
+      font-size: 16px;
+  }
 }

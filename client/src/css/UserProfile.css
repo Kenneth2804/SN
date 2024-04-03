@@ -2,20 +2,21 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: linear-gradient(to right, #031517, #163e48, #041c1f);
+    background: rgb(17, 14, 14);
     font-family: 'Arial', sans-serif;
-    color: #000000; 
-  }
+   }
   
   .user-profile {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    color: #ffffff; 
   }
   
   .user-profile h1 {
     font-size: 2em;
+    color: #ffffff; 
   }
   
   .user-profile img {
@@ -28,10 +29,13 @@ html, body {
   
   .comments-section {
     margin-top: 30px;
+    color: #000000; 
+    font-weight: bold;
   }
   
   .comments-section h2 {
     font-size: 1.5em;
+    color: #ffffff; 
   }
   
   .comment {
@@ -44,12 +48,4 @@ html, body {
     list-style: none;
   }
 
-
-  
-  @media screen and (max-width: 600px) {
-    .user-profile {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
   
