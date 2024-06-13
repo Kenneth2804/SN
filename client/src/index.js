@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {store} from './redux/store/index.js'
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
+import '../src/css/tailwind.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001';
 

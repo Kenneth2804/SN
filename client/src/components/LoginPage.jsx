@@ -7,19 +7,12 @@ import Login2 from './Login2'
 export default function LoginPage() {
     
     return (
-      <div className='landingviewClass'>
-        <div className='container'>
-          <div className='landingPic'>
-
-          <div className='inputContainer'>   
+      <div>
           <Login2></Login2>                 
           </div>
 
           
-              </div>
-        </div>
 
-      </div>
     )
   }
   

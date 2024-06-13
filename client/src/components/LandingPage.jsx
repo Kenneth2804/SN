@@ -7,17 +7,10 @@ import Login from './Login'
 export default function LandingPage() {
     
     return (
-      <div className='landingviewClass'>
-        <div className='container'>
-          <div className='landingPic'>
-          <div className='inputContainer'>   
+      <div>
           <Login></Login>                 
 
-          </div>
 
-          
-              </div>
-        </div>
 
       </div>
     )
