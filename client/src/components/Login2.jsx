@@ -116,18 +116,19 @@ export default function Login2() {
 function MoonIcon(props) {
   return (
     <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </svg>
+    xmlns="http://www.w3.org/2000/svg"
+    width="35"
+    height="35"
+    viewBox="0 0 24 24"
+    fill="yellow"
+    stroke="black"
+    strokeWidth="1"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+>
+    <path d="M21 3H3c-1.1 0-1.99.9-1.99 2L1 19c0 1.1.89 2 1.99 2H16l5-5V5c0-1.1-.9-2-2-2z"/>
+    <polyline points="16 3 16 8 21 8"/>
+</svg>
+
   );
 }
