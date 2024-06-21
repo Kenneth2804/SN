@@ -13,11 +13,10 @@ const initial = {
   token: null,
   userEmail: null,
   userEmail2: null,
-  localizationData: null, 
+  localizationData: null,
   userProfile: null,
   resetPasswordStatus: null,
   resetPasswordError: null,
-  
 };
 
 export default function rootReducer(state = initial, action) {
@@ -39,11 +38,12 @@ export default function rootReducer(state = initial, action) {
         ...state,
         authToken: action.payload,
       };
-      case types.SET_USER:
-        return {
-          ...state,
-          user: action.payload,
-        };
+
+    case types.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
 
     case types.LOGOUT:
       localStorage.removeItem("token");
@@ -57,55 +57,64 @@ export default function rootReducer(state = initial, action) {
     case types.GET_COMMENTS:
       return {
         ...state,
-        allcoment: action.payload, 
+        allcoment: action.payload,
       };
+
     case types.CREATE_COMMENT:
       return {
         ...state,
-        allcoment: [...state.allcoment, action.payload], 
+        allcoment: [...state.allcoment, action.payload],
       };
+
     case types.SET_USER_EMAIL:
       return {
         ...state,
         userEmail: action.payload,
         userEmail2: action.payload,
-      }
-      case types.GET_LOCALIZATION_DATA:
-        return {
-          ...state,
-          localizationData: action.payload,
-        };
-        case types.PROFILE:
-          return {
-            ...state,
-            userProfile: action.payload,
-            isLoggedIn: true, 
-            user: action.payload,
-          };
-          case types.LOAD_RANDOM_USERS:
-  return {
-    ...state,
-    allusers: action.payload,
-  };
-  case types.REQUEST_PASSWORD_RESET:
+      };
 
-    return {
-      ...state,
-      resetPasswordStatus: 'pending',
-      resetPasswordError: null,
-    };
-  case types.RESET_PASSWORD_SUCCESS:
-    return {
-      ...state,
-      resetPasswordStatus: 'success',
-      resetPasswordError: null,
-    };
-  case types.RESET_PASSWORD_FAILURE:
-    return {
-      ...state,
-      resetPasswordStatus: 'failure',
-      resetPasswordError: action.payload,
-    };
+    case types.GET_LOCALIZATION_DATA:
+      return {
+        ...state,
+        localizationData: action.payload,
+      };
+
+    case types.PROFILE:
+      return {
+        ...state,
+        userProfile: action.payload,
+        isLoggedIn: true,
+        user: action.payload,
+      };
+
+    case types.LOAD_RANDOM_USERS:
+      return {
+        ...state,
+        allusers: action.payload,
+      };
+
+    case types.REQUEST_PASSWORD_RESET:
+      return {
+        ...state,
+        resetPasswordStatus: "pending",
+        resetPasswordError: null,
+      };
+
+    case types.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        resetPasswordStatus: "success",
+        resetPasswordError: null,
+      };
+
+    case types.RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        resetPasswordStatus: "failure",
+        resetPasswordError: action.payload,
+      };
+
+
     default:
       return { ...state };
   }

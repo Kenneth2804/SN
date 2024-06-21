@@ -100,7 +100,7 @@ export const login = (email, password) => {
           if (city) queryParams.append('city', city);
           query = `?${queryParams.toString()}`;
         }
-
+  
         const response = await axios.get(`${URL}comments${query}`);
         dispatch({ type: types.GET_COMMENTS, payload: response.data });
         console.log("comentarios", response);
@@ -109,27 +109,34 @@ export const login = (email, password) => {
         console.error("Error al obtener comentarios:", error);
       }
     };
+  };
+
+
+export const createComment = (formData) => {
+  return async function (dispatch, getState) {
+    try {
+      const userEmail = getState().userEmail;
+  
+      if (!userEmail) {
+        console.error("El correo electrónico del usuario es nulo");
+        return;
+      }
+  
+      formData.append('email', userEmail);
+  
+      const response = await axios.post(`${URL}postcomment`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      dispatch({ type: types.CREATE_COMMENT, payload: response.data });
+      return response;
+    } catch (error) {
+      console.error("Error al crear comentario:", error);
+    }
+  };
 };
 
-
-  export const createComment = (payload) => {
-    return async function (dispatch, getState) {
-      try {
-        const userEmail = getState().userEmail;
-  
-        if (!userEmail) {
-          console.error("El correo electrónico del usuario es nulo");
-          return;
-        }
-  
-        const response = await axios.post(`${URL}postcomment`, { ...payload, email: userEmail });
-        dispatch({ type: types.CREATE_COMMENT, payload: response.data });
-        return response;
-      } catch (error) {
-        console.error("Error al crear comentario:", error);
-      }
-    };
-  };
   export const getLocalization = () => {
     return async function (dispatch) {
         try {

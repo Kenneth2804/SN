@@ -5,6 +5,7 @@ import { postuser, getLocalization } from "../redux/actions/index.js";
 import Select from "react-select";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import postit from "../images/postit.png"
 
 
 export default function Login() {
@@ -74,10 +75,9 @@ export default function Login() {
             <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to SECRET NOTES</h1>
           </div>
           <p className="text-[#a0a0a0] text-lg">
-            Immerse yourself in the ethereal realm of Dreamfall, where the boundaries between reality and fantasy blur,
-            and the whispers of the cosmos guide your journey.
+          Step into the enigmatic world of Whispering Shadows, where hidden secrets and clandestine messages intertwine, and every note holds the key to unraveling a deeper mystery.
           </p>
-          <img src="/placeholder.svg" alt="Dreamscape Landscape" className="rounded-2xl shadow-lg" />
+          <img src={postit} alt="Dreamscape Landscape" className="rounded-2xl shadow-lg" />
         </div>
       </div>
       <div className="bg-[#0f0f0f] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24">

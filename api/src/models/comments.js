@@ -13,18 +13,9 @@ module.exports = (sequelize) => {
            type: DataTypes.TEXT,
            allowNull: true 
         },
-        backgroundColor: {
+        audioFilePath: {
             type: DataTypes.STRING,
-            allowNull: true, 
-         },
-         borderColor: {
-            type: DataTypes.STRING,
-            allowNull: true, 
-         },
-         borderWidth: {
-            type: DataTypes.STRING,
-            allowNull: true, 
-         },
-     
+            allowNull: true,
+          },
     })
 }

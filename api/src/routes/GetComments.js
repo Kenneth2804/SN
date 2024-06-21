@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
                 attributes: ['name', 'originCountry', 'originCity', 'picture'],
                 where: {}
             }],
+            attributes: ['texto', 'audioFilePath', 'createdAt'], // Include audioFilePath here
             order: [['createdAt', 'DESC']]
         };
 

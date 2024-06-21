@@ -15,6 +15,7 @@ const editpicture = require("./Profiles/editprofilepic")
 const forgotpassword = require("./Profiles/forgotpassword")
 const resetpassword = require("./Profiles/resetpassword")
 
+
 const router = Router();
 
 router.use("/logout", logout)

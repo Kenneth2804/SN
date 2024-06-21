@@ -68,7 +68,6 @@ Comments.belongsTo(User)
 
 
 
-
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
