@@ -16,6 +16,8 @@ export const types ={
     REQUEST_PASSWORD_RESET: "REQUEST_PASSWORD_RESET",
     RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS",
     RESET_PASSWORD_FAILURE: "RESET_PASSWORD_FAILURE",
+    LIKE_COMMENT: 'LIKE_COMMENT',
+    UNLIKE_COMMENT: 'UNLIKE_COMMENT',
 }
 export const setUser = (user) => {
   return {
@@ -264,3 +266,19 @@ export const resetPassword = (email, verificationCode, newPassword) => {
 };
 
 
+export const likeComment = (userId, commentId) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`http://localhost:3001/like`, { userId, commentId });
+      const message = response.data.message;
+      if (message === 'Like eliminado.') {
+        dispatch({ type: types.UNLIKE_COMMENT, payload: { commentId, userId } });
+      } else {
+        dispatch({ type: types.LIKE_COMMENT, payload: { commentId, userId } });
+      }
+      return response;
+    } catch (error) {
+      console.error("Error al dar like al comentario:", error);
+    }
+  };
+};

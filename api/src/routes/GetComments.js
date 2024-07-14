@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Comments, User } = require("../db.js");
+const { Comments, User, Likes } = require("../db.js"); // Asegúrate de importar el modelo Likes
 
 const router = Router();
 
@@ -8,12 +8,18 @@ router.get("/", async (req, res) => {
 
     try {
         let queryOptions = {
-            include: [{
-                model: User,
-                attributes: ['name', 'originCountry', 'originCity', 'picture'],
-                where: {}
-            }],
-            attributes: ['texto', 'audioFilePath', 'createdAt'], // Include audioFilePath here
+            include: [
+                {
+                    model: User,
+                    attributes: ['id','name', 'originCountry', 'originCity', 'picture'],
+                    where: {}
+                },
+                {
+                    model: Likes, // Incluir el modelo Likes
+                    attributes: ['id', 'userId'] // Selecciona los atributos que desees mostrar
+                }
+            ],
+            attributes: ['id','texto', 'audioFilePath', 'createdAt'],
             order: [['createdAt', 'DESC']]
         };
 

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getComments, getLocalization } from '../../redux/actions/index';
-import { useNavigate } from 'react-router-dom';
+import { getComments, getLocalization, likeComment } from '../../redux/actions/index';
 import Swal from 'sweetalert2';
-import SelectCountry from '../general/SelectCountry';
+import { FaThumbsUp } from 'react-icons/fa';
 
 export default function GetComments() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.allcoment);
+  const userId = useSelector((state) => state.homeData?.id); 
   const localizationData = useSelector((state) => state.localizationData);
-  const navigate = useNavigate();
   const [fullCommentsVisibility, setFullCommentsVisibility] = useState({});
   
   useEffect(() => {
@@ -51,6 +50,14 @@ export default function GetComments() {
     speechSynthesis.speak(utterance);
   };
   
+  const handleLike = (commentId) => {
+    if (userId) {
+      dispatch(likeComment(userId, commentId));
+    } else {
+      Swal.fire("Debes iniciar sesión para dar like");
+    }
+  };
+
   const countryOptions = localizationData
     ? localizationData.map(loc => ({ value: loc.country, label: loc.country }))
     : [];
@@ -60,20 +67,20 @@ export default function GetComments() {
     : [];
   
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-3">
       <div className="comment-container flex flex-wrap justify-center items-start p-15 gap-5 relative">
         {comments && comments.length > 0 ? (
           comments.map((comment) => {
-            const commentText = comment.texto || 'Comentario no disponible'; // Asegúrate de que comment.texto esté definido
+            const commentText = comment.texto || 'Comentario no disponible'; 
             const isLongComment = commentText.split(' ').length > 50;
             const shouldShowFullComment = fullCommentsVisibility[comment.id];
             const displayText = isLongComment && !shouldShowFullComment
               ? `${commentText.split(' ').slice(0, 50).join(' ')}...`
               : commentText;
 
-            // Corregir la barra invertida en la ruta del archivo de audio
             const audioFilePath = comment.audioFilePath ? comment.audioFilePath.replace(/\\/g, '/') : '';
-            console.log("audios", audioFilePath); // Verificar la ruta del archivo de audio
+            const likesCount = comment.likes.length;
+            const hasLiked = comment.likes.some(like => like?.userId === userId);
             
             return (
               <div key={comment.id} className="comment-card flex flex-col items-center justify-center bg-yellow-100 shadow-lg p-5 m-5 rotate-[-2deg] flex-basis-1/4 max-w-[350px] w-[250px] rounded-lg relative transition-shadow duration-300 hover:shadow-xl">
@@ -101,14 +108,24 @@ export default function GetComments() {
                   Leer en voz alta
                 </button>
                 {audioFilePath ? (
-  <audio controls className="mt-2">
-    <source src={`http://localhost:3001/${audioFilePath}`} type="audio/wav" />
-    Tu navegador no soporta el elemento de audio.
-  </audio>
-) : (
-  <h2>"no hay audio"</h2>
-)}
-
+                  <div className="mt-4 p-4 rounded-lg shadow-lg bg-pink-100 flex items-center justify-center">
+                    <audio controls className="w-44 rounded-lg">
+                      <source src={`http://localhost:3001/${audioFilePath}`} type="audio/wav" />
+                      Tu navegador no soporta el elemento de audio.
+                    </audio>
+                  </div>
+                ) : (
+                  <h2 className="mt-4 text-lg font-semibold text-pink-600">No hay audio</h2>
+                )}
+                <div className="flex items-center mt-2">
+                  <button
+                    onClick={() => handleLike(comment.id)}
+                    className={`text-2xl ${hasLiked ? 'text-blue-500' : 'text-gray-500'} hover:text-blue-700 transition-colors duration-200`}
+                  >
+                    <FaThumbsUp />
+                  </button>
+                  <span className="ml-2 text-black font-bold">{likesCount}</span>
+                </div>
               </div>
             );
           })

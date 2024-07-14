@@ -23,15 +23,5 @@
   }
   
  
-  .close-button {
-    position: absolute;
-    width: 25px;
-    top: 20vh;
-    right: 8vh;
-    background-color: red;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    z-index: 1000;
-  }
+ 
   

@@ -11,11 +11,12 @@ const authMiddleware = require("../controllers/authMiddleware.js");
 router.get("/", authMiddleware, async (req, res) => {
   const { id } = req.user;
   try {
-    const user = await User.findByPk(id, { attributes: ["name", "email", "picture"] });
+    const user = await User.findByPk(id, { attributes: [ "id","name", "email", "picture"] });
     if (!user) {
       return res.status(404).json({ message: "El usuario no existe" });
     }
     res.json({
+      id: user.id,
       name: user.name,
       email: user.email,
       picture: user.picture,

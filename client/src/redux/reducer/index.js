@@ -113,7 +113,24 @@ export default function rootReducer(state = initial, action) {
         resetPasswordStatus: "failure",
         resetPasswordError: action.payload,
       };
-
+      case types.LIKE_COMMENT:
+        return {
+          ...state,
+          allcoment: state.allcoment.map(comment =>
+            comment.id === action.payload.commentId
+              ? { ...comment, likes: [...comment.likes, { userId: action.payload.userId }] }
+              : comment
+          ),
+        };
+        case types.UNLIKE_COMMENT:
+          return {
+            ...state,
+            allcoment: state.allcoment.map(comment => 
+              comment.id === action.payload.commentId
+                ? { ...comment, likes: comment.likes.filter(like => like.userId !== action.payload.userId) }
+                : comment
+            )
+          };
 
     default:
       return { ...state };

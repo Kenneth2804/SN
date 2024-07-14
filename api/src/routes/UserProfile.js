@@ -27,9 +27,12 @@ router.get("/", authenticateToken, isAuthenticated, async (req, res) => {
     }
     const userComments = dbUser.comments ? dbUser.comments.map((comment) => ({
       texto: comment.texto,
+      audioFilePath: comment.audioFilePath,
+      createdAt: comment.createdAt
     })) : [];
 
     const userInfo = {
+      id: dbUser.id,
       name: dbUser.name,
       email: dbUser.email,
       picture: dbUser.picture,

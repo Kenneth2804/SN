@@ -6,7 +6,6 @@ const fs = require('fs');
 
 const router = Router();
 
-// Configurar multer para la subida de archivos de audio
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = 'uploads/audio/';
@@ -37,7 +36,7 @@ router.post('/', upload.single('audio'), async (req, res) => {
     };
 
     if (audioFile) {
-      commentData.audioFilePath = audioFile.path; // Guarda la ruta del archivo de audio si existe
+      commentData.audioFilePath = audioFile.path; 
     }
 
     const comment = await Comments.create(commentData);

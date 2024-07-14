@@ -1,16 +1,18 @@
-
 const express = require('express');
-const {User, Comments} = require ("../../db.js");
+const { User, Comments } = require("../../db.js");
 const router = express.Router();
+
 router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findByPk(userId, { 
       include: [{
         model: Comments,
-        as: 'comments' 
+        as: 'comments',
+        attributes: ['texto', 'audioFilePath', 'createdAt'] // Include audioFilePath
       }] 
     }); 
+
     if (!user) {
       return res.status(404).send('Usuario no encontrado');
     }

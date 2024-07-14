@@ -14,6 +14,7 @@ const getusers = require("./GetUsers")
 const editpicture = require("./Profiles/editprofilepic")
 const forgotpassword = require("./Profiles/forgotpassword")
 const resetpassword = require("./Profiles/resetpassword")
+const likes = require("../routes/likes/Likes.js")
 
 
 const router = Router();
@@ -32,5 +33,6 @@ router.use("/getusers", getusers)
 router.use("/editpicture", editpicture)
 router.use("/forgotpassword", forgotpassword)
 router.use("/resetpassword", resetpassword)
+router.use("/like", likes)
 
 module.exports = router;

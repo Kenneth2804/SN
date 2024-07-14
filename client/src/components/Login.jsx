@@ -68,7 +68,7 @@ export default function Login() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full">
-      <div className="bg-[#1a1a1a] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24">
+      <div className="bg-[#1a1a1a] flex flex-col items-center justify-center px-8 py-12 md:px-16 ">
         <div className="max-w-md space-y-4">
           <div className="flex items-center space-x-4">
             <MoonIcon className="w-8 h-8 text-[#c0c0c0]" />
@@ -83,7 +83,7 @@ export default function Login() {
       <div className="bg-[#0f0f0f] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24">
         <div className="max-w-md space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter the Dreamfall</h2>
+            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter to SECRET NOTES</h2>
             <p className="text-[#a0a0a0] text-lg">Create your account to unlock the secrets of the ethereal realm.</p>
           </div>
 

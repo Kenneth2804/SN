@@ -7,8 +7,12 @@ module.exports = {
     '../client/src/components/menu/ForgotPassword.jsx',
     '../client/src/components/menu/Sidebar.jsx',
     '../client/src/components/general/SelectCountry.jsx',
+    '../client/src/components/general/Popup.jsx',
     '../client/src/components/Comments/GetComments.jsx',
+    '../client/src/components/Comments/CreateComments.jsx',
     '../client/src/components/Home.jsx',
+    "../client/src/components/Profile/UserProfile.jsx",
+    "../client/src/components/Profile/OtherProfiles.jsx",
   ],
   theme: {
     extend: {},

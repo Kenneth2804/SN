@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../redux/actions/index';
 import { types } from '../../redux/actions';
 import axios from 'axios';
-import '../../css/inputcreator.css';
 
 export default function CreateComments() {
   const dispatch = useDispatch();
@@ -68,29 +67,51 @@ export default function CreateComments() {
   };
 
   return (
-    <div className="create-comments-container">
-      <div className='post-it'>
-        <div className="to-from">
-          <p>To: <span contenteditable="true">Nombre</span></p>
-          <p>From: <span contenteditable="true">Tu Nombre</span></p>
+    
+    <div class="bg-[#FFFBEB] border-8 border-[#FFCC00] rounded-2xl shadow-xl p-8 w-[300px] right-[10vh] sm:w-[400px] transform rotate-[2deg] hover:rotate-0 transition-transform duration-300 relative">
+      <div className="flex items-center mb-6">
+        <div className="mr-4">
+          <label htmlFor="name" className="text-lg font-medium">
+            From
+          </label>
+          <input id="name" placeholder="Enter your name" className="w-full" />
         </div>
+        <div className="mr-4">
+          <label htmlFor="to" className="text-lg font-medium">
+            To
+          </label>
+          <input id="to" placeholder="Enter recipient's name" className="w-full" />
+        </div>
+      </div>
+      <div className="flex gap-3 mb-6">
+  <button 
+    variant="secondary" 
+    size="md" 
+    className={`px-6 py-3 rounded-full 
+                ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-500 hover:bg-black-600'} 
+                text-white font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out`}
+    onClick={isRecording ? handleStopRecording : handleStartRecording}
+  >
+    {isRecording ? 'Detener grabación' : 'Grabar comentario'}
+  </button>
+</div>
+
         <textarea
+          id="comment"
           placeholder="Escribe un comentario"
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           rows={4}
-        ></textarea>
+          className="w-full h-24 resize-none rounded-lg mb-6"
+        />
+      <div className="flex justify-end">
+        <button 
+          className="px-6 py-3 rounded-full" 
+          onClick={handleCommentSubmit}
+        >
+          Enviar comentario
+        </button>
       </div>
-      <button 
-        className="record-button" 
-        onClick={isRecording ? handleStopRecording : handleStartRecording}
-      >
-        {isRecording ? 'Detener grabación' : 'Grabar comentario'}
-      </button>
-      <button className="comment-button" onClick={handleCommentSubmit}>
-        Enviar comentario
-      </button>
-
       <div className="comments-list">
         {comments.map((comment) => (
           <div key={comment.id} className="comment-item">
@@ -105,5 +126,25 @@ export default function CreateComments() {
         ))}
       </div>
     </div>
+  );
+}
+
+function XIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
   );
 }
