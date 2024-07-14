@@ -4,6 +4,9 @@
     --input-background-color: white;
     --submit-background-color: #519ebd;
   }
+  body {
+    font-family: 'Montserrat', sans-serif;
+}
 
 .loginviewClass{
     background-color: var(--main-background-color);
@@ -12,29 +15,8 @@
     min-height: 100vh;
     width: 100%;   
 }
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
-  }
-  
-  .landingPic {
-    background-image: url("../images/loginviewPage4.png");
-    min-height: 100vh; 
-    width: 50%;
-    background-size: cover;
-    background-position: center;
-  }
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%; 
-    margin-right: 4vh;
-    
-  }
-  
+ 
+ 
   .inputField {
     margin-bottom: 20px;
   }
@@ -53,8 +35,8 @@
     outline: none;
     background: var(--input-background-color);
     color: #000000;
-    border: 3px solid var(--main-background-color);
-    border-radius: 20px;
+    border: 3px solid;
+    border-radius: 10px;
     box-shadow: 3px 3px 7px 0px #E2E2E2;
     transition: .3s ease;
   }
@@ -79,6 +61,7 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 30px;
+    background-color: #2D2D2D;
   }
 
   .landingInfo h2 {
@@ -112,6 +95,11 @@
     border-radius: 10px;
     display: inline-block;
     box-shadow: 7px 4px 23px 0px #2D2D2D;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration-line: none;
    }
    .submit:hover{
     background: linear-gradient(to right,#515151 ,#837a68);
@@ -121,33 +109,38 @@
     transform: scale(0.95);
    
   }
-
-
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
+  .subtitle {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+  }
   
-    .landingPic {
-      display: none;
-    }
+  .inputField {
+    margin: 0 auto 20px auto; 
+    display: flex;
+    justify-content: center;
+  }
   
-    .inputContainer {
-      width: 100%; 
-    }
-  
-    .inputField input {
-      width: 25%; 
-      margin: 0 auto; 
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none; 
-      color: var(--main-text-color);
-    }
+  .title {
+    text-align: center;
+    margin-bottom: 20px; 
+    color: white;
   }
 
-  
+  .or{
+    text-align: center;
+    color: white;
+  }
+
+  .terms{
+    margin: 0 auto 20px auto; 
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+    text-decoration-line: none;
+  }
+
 
 
   

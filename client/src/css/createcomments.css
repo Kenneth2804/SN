@@ -1,0 +1,49 @@
+.createcomment {
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 15px;
+    border-radius: 10px; 
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:bolder
+  }
+  
+  .createcomment:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-2px); 
+  }
+  .selectsearchcards {
+    font-size: 18px; 
+    font-weight: bold;
+    padding: 10px 5%; 
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%; 
+    top: 10px;
+    display: flex;
+  }
+  
+
+  @media (max-width: 768px) {
+    .createcomment {
+        position: fixed; 
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #000; 
+        color: #fff; 
+        width: 100%; 
+        border-radius: 0; 
+        box-shadow: none; 
+        z-index: 1002;
+    }
+
+}
+
+  

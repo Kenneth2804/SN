@@ -4,7 +4,6 @@ export default function LandingInfo() {
   const infoRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Detectar el desplazamiento de la página
   useEffect(() => {
     function handleScroll() {
       const infoElement = infoRef.current;

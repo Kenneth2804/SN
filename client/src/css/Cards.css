@@ -1,0 +1,107 @@
+.comment-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px;
+  gap: 20px; 
+  position: relative;
+}
+
+.comment-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdfd86;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin: 20px;
+  transform: rotate(-2deg);
+  flex-basis: calc((100% - 80px) / 4); /* Initially set to take 1/4th of container width minus gaps */
+  max-width: 350px;
+  border-radius: 5px;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.comment-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 10%;
+  width: 80px;
+  height: 20px;
+  background-color: #fff;
+  opacity: 0.5;
+  transform: rotate(-5deg);
+}
+
+.comment-card:hover {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  animation: rotateCard 1s forwards;
+}
+
+@keyframes rotateCard {
+  from {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+  to {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.comment-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  margin-bottom: 15px;
+}
+
+.comment-card h2, .comment-card h5, .comment-text {
+  color: #000000;
+  font-weight: bolder;
+  padding: 10px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+.nocomments {
+  text-align: center;
+  margin: 0 auto;
+  color: #403B31;
+}
+
+@media (max-width: 1200px) {
+  .comment-container {
+      padding: 40px;
+      gap: 15px;
+  }
+
+  .comment-card {
+      flex-basis: calc((100% - 60px) / 3); /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 800px) {
+  .comment-container {
+      padding: 20px;
+      gap: 10px;
+  }
+
+  .comment-card {
+      flex-basis: calc((100% - 40px) / 2); 
+  }
+}
+
+@media (max-width: 500px) {
+  .comment-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .comment-card {
+      flex-basis: 100%; /* Stack cards vertically on very small screens */
+  }
+}

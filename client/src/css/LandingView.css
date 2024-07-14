@@ -1,155 +1,48 @@
-:root {
-    --main-text-color: black;
-    --main-background-color: #d9ba92;
-    --input-background-color: white;
-    --submit-background-color: #519ebd;
-  }
-
-.landingviewClass{
-    background-color: var(--main-background-color);
-    color: var(--main-text-color);
-    font-weight: bolder;
-    min-height: 100vh;
-    width: 100%;   
+body {
+  font-family: 'Montserrat', sans-serif;
 }
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
+    .landingPic {
+      background-image: url("../images/p9.jpg");
+      min-height: 100vh; 
+   
+      background-size: cover;
+      background-position: center;
+    }
+  
+  .selectsearch {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 3px;
+    width: 100%; 
+    max-width: 350px; 
+    margin: 0 auto; 
+    display: block;
+    outline: none;
+    color: #000000;
+    border-radius: 20px;
+    transition: .3s ease;
   }
-  
-  .landingPic {
-    background-image: url("../images/loginviewPage2.png");
-    min-height: 100vh; 
-    width: 50%;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  
   .inputContainer {
+    background-color: rgba(53, 40, 40, 0.9); 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50%; 
-    margin-right: 4vh;
-    
+    height: 100vh; 
   }
   
-  .inputField {
-    margin-bottom: 20px;
+.terms{
+  color: #ffffff;
   }
-  
-  .inputField label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .inputField input {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 6px 113px;
-    max-width: 100%;
-    padding-left: 13px;
-    outline: none;
-    background: var(--input-background-color);
-    color: #000000;
-    border: 3px solid var(--main-background-color);
-    border-radius: 20px;
-    box-shadow: 3px 3px 7px 0px #E2E2E2;
-    transition: .3s ease;
-  }
-  .inputField input:focus{
-    background: var(--input-background-color);
-    border: 2px solid var(--submit-background-color);
-    border-radius: 10px; 
-  }
-
-  .register{
-    text-decoration: none;
-    color: black;
-    cursor: pointer;
-  }
-  .landingInfo {
+  .title {
     text-align: center;
-    padding: 84px;
-    color: var(--main-text-color);
-    margin: 28px;
-    border-radius: 10px;
-    max-width: 585px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 30px;
-  }
-
-  .landingInfo h2 {
-    color: var(--main-text-color);
-    text-align: center; 
     margin-bottom: 20px; 
-    font-size: 1.5em; 
- 
-  }
-  
-  .fade-in {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  .fade-in.active {
-    opacity: 1;
-  }
-  
-  .submit{
-    background: var(--submit-background-color);
-    background-color: var(--submit-background-color);
-    color: var(--input-background-color);
-    font-family: Trebuchet MS;
-    font-size: 18px;
-    font-weight: 800;
-    font-style: normal;
-    text-decoration: none;
-    padding: 12px 38px;
-    border: 0px solid #000;
-    border-radius: 10px;
-    display: inline-block;
-    box-shadow: 7px 4px 23px 0px #2D2D2D;
-   }
-   .submit:hover{
-    background: linear-gradient(to right,#515151 ,#837a68);
-    background-color: #515151;
-   }
-   .submit:active{
-    transform: scale(0.95);
-   
+    color: white;
   }
 
-
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  
-    .landingPic {
-      display: none;
-    }
-  
-    .inputContainer {
-      width: 100%; 
-    }
-  
-    .inputField input {
-      width: 25%; 
-      margin: 0 auto; 
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none; 
-      color: var(--main-text-color);
-    }
+  .subtitle {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
   }
-
-  
-
-
   
