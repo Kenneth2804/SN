@@ -6,6 +6,7 @@ const router = Router();
 router.get("/", async (req, res) => {
     const { country, city } = req.query; 
 
+    
     try {
         let queryOptions = {
             include: [

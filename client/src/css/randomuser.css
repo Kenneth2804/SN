@@ -1,10 +1,10 @@
 .randompic{
-    width: 20vh;
-    height: 20vh;
+    width: 15vh;
+    height: 15vh;
     margin-right: 10vh;
     transform: translate(70%);
-    border-radius: 50%;
-    padding: 10px;
+    border-radius: 60%;
+    margin: 10px 0;
     cursor: pointer;
 }
 .piclist{
