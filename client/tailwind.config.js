@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+
 module.exports = {
   content: [
     '../client/src/components/Login.jsx',
@@ -10,9 +11,14 @@ module.exports = {
     '../client/src/components/general/Popup.jsx',
     '../client/src/components/Comments/GetComments.jsx',
     '../client/src/components/Comments/CreateComments.jsx',
+    '../client/src/components/Comments/CommentCard.jsx',
     '../client/src/components/Home.jsx',
     "../client/src/components/Profile/UserProfile.jsx",
     "../client/src/components/Profile/OtherProfiles.jsx",
+    "../client/src/components/token/AuthWrapper.jsx",
+    "../client/src/components/notification/Notification.jsx"
+
+    
   ],
   theme: {
     extend: {},

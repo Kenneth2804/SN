@@ -17,6 +17,7 @@ const initial = {
   userProfile: null,
   resetPasswordStatus: null,
   resetPasswordError: null,
+  notifications: [],
 };
 
 export default function rootReducer(state = initial, action) {
@@ -131,6 +132,11 @@ export default function rootReducer(state = initial, action) {
                 : comment
             )
           };
+          case types.GET_NOTIFICATIONS:
+            return {
+              ...state,
+              notifications: action.payload,
+            };
 
     default:
       return { ...state };

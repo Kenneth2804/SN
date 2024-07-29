@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Logout from './Logout';
 import SelectCountry from '../general/SelectCountry';
+import Notifications from '../notification/Notification';
 
 export const Sidebar = ({ userData }) => {
     const navRef = useRef();
@@ -35,6 +36,7 @@ export const Sidebar = ({ userData }) => {
                 <Link to={"/home"} className="hover:underline text-lg md:text-base" prefetch={false}>
                     Home
                 </Link>
+                <Notifications></Notifications>
                 <Logout className="hover:underline text-lg md:text-base" prefetch={false}>
                     Logout
                 </Logout>

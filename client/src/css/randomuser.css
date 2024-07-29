@@ -2,6 +2,10 @@
     width: 20vh;
     height: 20vh;
     margin-right: 10vh;
+    transform: translate(70%);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
 }
 .piclist{
     text-decoration: none;

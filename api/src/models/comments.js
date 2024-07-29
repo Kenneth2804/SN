@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
     sequelize.define('comments', {
         id: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4, // Genera automáticamente un UUID v4
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true
         },
@@ -14,6 +14,14 @@ module.exports = (sequelize) => {
         },
         audioFilePath: {
             type: DataTypes.STRING,
+            allowNull: true,
+        },
+        mentionedUsers: {
+            type: DataTypes.JSON,  
+            allowNull: true,
+        },
+        to: {
+            type: DataTypes.STRING,  // Puedes ajustar el tipo de dato según sea necesario
             allowNull: true,
         },
         createdAt: {

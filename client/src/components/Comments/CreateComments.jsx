@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function CreateComments() {
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState("");
+  const [to, setTo] = useState("");  
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -51,24 +52,25 @@ export default function CreateComments() {
     let audioBlob = null;
     if (audioChunks.length > 0) {
       audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-      setAudioChunks([]); // Reset audio chunks
+      setAudioChunks([]);
     }
 
     const formData = new FormData();
     formData.append('texto', commentText);
+    formData.append('to', to);  
     if (audioBlob) {
       formData.append('audio', audioBlob, 'audio.wav');
     }
 
     dispatch(createComment(formData));
     setCommentText("");
+    setTo("");  
     setIsPopupOpen(true);
     window.location.reload();
   };
 
   return (
-    
-    <div class="bg-[#FFFBEB] border-8 border-[#FFCC00] rounded-2xl shadow-xl p-8 w-[300px] right-[10vh] sm:w-[400px] transform rotate-[2deg] hover:rotate-0 transition-transform duration-300 relative">
+    <div className="bg-[#FFFBEB] border-8 border-[#FFCC00] rounded-2xl shadow-xl p-8 w-[300px] right-[10vh] sm:w-[400px] transform rotate-[2deg] hover:rotate-0 transition-transform duration-300 relative">
       <div className="flex items-center mb-6">
         <div className="mr-4">
           <label htmlFor="name" className="text-lg font-medium">
@@ -80,30 +82,35 @@ export default function CreateComments() {
           <label htmlFor="to" className="text-lg font-medium">
             To
           </label>
-          <input id="to" placeholder="Enter recipient's name" className="w-full" />
+          <input 
+            id="to" 
+            placeholder="Enter recipient's name" 
+            value={to}
+            onChange={(e) => setTo(e.target.value)} 
+            className="w-full" 
+          />
         </div>
       </div>
       <div className="flex gap-3 mb-6">
-  <button 
-    variant="secondary" 
-    size="md" 
-    className={`px-6 py-3 rounded-full 
-                ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-500 hover:bg-black-600'} 
-                text-white font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out`}
-    onClick={isRecording ? handleStopRecording : handleStartRecording}
-  >
-    {isRecording ? 'Detener grabación' : 'Grabar comentario'}
-  </button>
-</div>
-
-        <textarea
-          id="comment"
-          placeholder="Escribe un comentario"
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
-          rows={4}
-          className="w-full h-24 resize-none rounded-lg mb-6"
-        />
+        <button 
+          variant="secondary" 
+          size="md" 
+          className={`px-6 py-3 rounded-full 
+                      ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-500 hover:bg-black-600'} 
+                      text-white font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out`}
+          onClick={isRecording ? handleStopRecording : handleStartRecording}
+        >
+          {isRecording ? 'Detener grabación' : 'Grabar comentario'}
+        </button>
+      </div>
+      <textarea
+        id="comment"
+        placeholder="Escribe un comentario"
+        value={commentText}
+        onChange={(e) => setCommentText(e.target.value)}
+        rows={4}
+        className="w-full h-24 resize-none rounded-lg mb-6"
+      />
       <div className="flex justify-end">
         <button 
           className="px-6 py-3 rounded-full" 

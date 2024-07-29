@@ -8,6 +8,7 @@ import CreateComments from './Comments/CreateComments';
 import Popup from './general/Popup';
 import RandomUsers from './Profile/RandomUsers';
 import '../css/createcomments.css';
+import AuthWrapper from './token/AuthWrapper.jsx';
 
 
 export default function Home() {
@@ -46,10 +47,12 @@ export default function Home() {
   return (
     <div>
       <Sidebar userData={homeData} />
+      <AuthWrapper>
+
       <button 
         className="bg-[#1a1a1a] text-white rounded-md px-4 py-2 flex items-center gap-2 hover:bg-[#2a2a2a] transition-colors createcomment" 
         onClick={openCreateComments}
-      >
+        >
         <PencilIcon className="w-5 h-5" />
         CREA TU COMENTARIO
       </button>
@@ -61,7 +64,9 @@ export default function Home() {
         isOpen={isCreateCommentsOpen}
         onClose={closeCreateComments}
         component={<CreateComments />}
-      />
+        />
+
+        </AuthWrapper>
     </div>
   );
 }
@@ -69,13 +74,13 @@ export default function Home() {
 function PencilIcon(props) {
   return (
     <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

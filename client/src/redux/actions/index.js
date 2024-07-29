@@ -18,6 +18,7 @@ export const types ={
     RESET_PASSWORD_FAILURE: "RESET_PASSWORD_FAILURE",
     LIKE_COMMENT: 'LIKE_COMMENT',
     UNLIKE_COMMENT: 'UNLIKE_COMMENT',
+    GET_NOTIFICATIONS: "GET_NOTIFICATIONS"
 }
 export const setUser = (user) => {
   return {
@@ -63,6 +64,24 @@ export const setAuthToken = (token) => ({
   type: "SET_AUTH_TOKEN",
   payload: token,
 });
+
+export const refreshToken = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('/refresh-token', {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      const newToken = response.data.token;
+      localStorage.setItem('token', newToken);
+      dispatch(setAuthToken(newToken));
+    } catch (error) {
+      console.error('Error al refrescar el token:', error);
+    }
+  };
+};
 
 
 export const login = (email, password) => {
@@ -279,6 +298,16 @@ export const likeComment = (userId, commentId) => {
       return response;
     } catch (error) {
       console.error("Error al dar like al comentario:", error);
+    }
+  };
+};
+export const getNotifications = (userId) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/noti/${userId}`);
+      dispatch({ type: types.GET_NOTIFICATIONS, payload: response.data });
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
     }
   };
 };
