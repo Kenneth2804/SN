@@ -71,7 +71,7 @@ const OtherProfiles = () => {
               <div className="space-y-6">
                 {userData.comments && userData.comments.length > 0 ? (
                   userData.comments.map((comment, index) => (
-                    <div key={index} className="space-y-4 p-4 border-b border-gray-700"> {/* Add padding and border */}
+                    <div key={index} className="space-y-4 p-4 border-b border-gray-700">
                       {comment.texto && (
                         <>
                           <div className="flex items-center gap-2">

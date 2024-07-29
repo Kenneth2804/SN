@@ -5,6 +5,7 @@ import EditProfile from './EditProfile.jsx';
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { Sidebar } from '../menu/Sidebar.jsx';
+import AuthWrapper from '../token/AuthWrapper.jsx';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,10 @@ const UserProfile = () => {
   }
 
   return (
+    
     <>
       <Sidebar userData={userProfile}></Sidebar>
+    <AuthWrapper>
       <div className="w-full max-w-70 mx-auto my-8">
         <div className="bg-[#1a1b1e] rounded-2xl overflow-hidden shadow-lg">
           <div className="relative h-40 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]">
@@ -40,7 +43,7 @@ const UserProfile = () => {
             <p className="text-sm text-[#9ca3af] mt-1">
               <span className="text-[#6b7280]">Country:</span> {userProfile.originCountry}
             </p>
-        <Link to={"/edit"} className='w-10 flex left-4' >
+        <Link to={"/edit"} className='grid place-content-center mt-3' >
           <FaUserEdit style={{ color: 'black', fontSize: '24px' }} />
         </Link>
           </div>
@@ -75,7 +78,7 @@ const UserProfile = () => {
                             <source
                               src={`http://localhost:3001/${comment.audioFilePath}`}
                               type="audio/mpeg"
-                            />
+                              />
                             Your browser does not support the audio element.
                           </audio>
                         </>
@@ -93,6 +96,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+</AuthWrapper>
     </>
   );
 };
@@ -102,9 +106,9 @@ export default UserProfile;
 function MessageCircleIcon(props) {
   return (
     <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"

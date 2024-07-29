@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Likes } = require('../../db'); // Ajusta el path según tu estructura
+const { Likes, Notification, Comments, User } = require('../../db');
 
 router.post('/', async (req, res) => {
     const { userId, commentId } = req.body;
@@ -14,7 +14,35 @@ router.post('/', async (req, res) => {
 
         console.log('No se encontró un like existente. Creando uno nuevo.');
         const like = await Likes.create({ userId, commentId });
-        res.status(201).json(like);
+
+        const comment = await Comments.findByPk(commentId);
+        if (comment) {
+            const user = await User.findByPk(userId);
+            if (user) {
+                const notification = await Notification.create({
+                    type: 'like',
+                    message: `Your comment has been liked by ${user.name}` ,
+                    userId: comment.userId,
+                });
+                console.log('Notificación creada:', notification.message);
+            }
+        }
+
+
+        const user = await User.findByPk(userId, {
+            attributes: ['name', 'picture']
+        });
+
+        const likeResponse = {
+            like,
+            user: {
+                name: user.name,
+                picture: user.picture,
+                likedAt: like.createdAt 
+            }
+        };
+
+        res.status(201).json(likeResponse);
     } catch (error) {
         console.error('Error al manejar el like:', error);
         res.status(400).json({ error: error.message });
@@ -22,17 +50,3 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-// Ruta para quitar like a un comentario
-/* router.delete('/unlike', async (req, res) => {
-    const { userId, commentId } = req.body;
-    try {
-        await Likes.destroy({ where: { userId, commentId } });
-        res.status(204).send();
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
- */

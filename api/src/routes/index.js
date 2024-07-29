@@ -15,6 +15,8 @@ const editpicture = require("./Profiles/editprofilepic")
 const forgotpassword = require("./Profiles/forgotpassword")
 const resetpassword = require("./Profiles/resetpassword")
 const likes = require("../routes/likes/Likes.js")
+const refresh = require("../routes/token/refreshToken.js")
+const getNotification = require('../routes/likes/Noti.js')
 
 
 const router = Router();
@@ -34,5 +36,8 @@ router.use("/editpicture", editpicture)
 router.use("/forgotpassword", forgotpassword)
 router.use("/resetpassword", resetpassword)
 router.use("/like", likes)
+router.use("/refresh-token", refresh)
+router.use("/noti", getNotification)
+
 
 module.exports = router;

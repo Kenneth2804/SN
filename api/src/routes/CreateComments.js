@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single('audio'), async (req, res) => {
-  const { email, texto } = req.body;
+  const { email, texto, to } = req.body;
   const audioFile = req.file;
 
   try {
@@ -32,6 +32,7 @@ router.post('/', upload.single('audio'), async (req, res) => {
 
     const commentData = {
       texto,
+      to,
       userId: finduser.id
     };
 

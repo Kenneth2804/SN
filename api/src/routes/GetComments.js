@@ -1,11 +1,12 @@
 const { Router } = require('express');
-const { Comments, User, Likes } = require("../db.js"); // Asegúrate de importar el modelo Likes
+const { Comments, User, Likes } = require("../db.js"); 
 
 const router = Router();
 
 router.get("/", async (req, res) => {
     const { country, city } = req.query; 
 
+    
     try {
         let queryOptions = {
             include: [
@@ -15,11 +16,11 @@ router.get("/", async (req, res) => {
                     where: {}
                 },
                 {
-                    model: Likes, // Incluir el modelo Likes
-                    attributes: ['id', 'userId'] // Selecciona los atributos que desees mostrar
+                    model: Likes, 
+                    attributes: ['id', 'userId'] 
                 }
             ],
-            attributes: ['id','texto', 'audioFilePath', 'createdAt'],
+            attributes: ['id','texto',"to", 'audioFilePath', 'createdAt'],
             order: [['createdAt', 'DESC']]
         };
 
