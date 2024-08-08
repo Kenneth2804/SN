@@ -4,8 +4,10 @@ const { Likes, Notification, Comments, User } = require('../../db');
 
 router.post('/', async (req, res) => {
     const { userId, commentId } = req.body;
+
     try {
         const existingLike = await Likes.findOne({ where: { userId, commentId } });
+
         if (existingLike) {
             console.log('Like existente encontrado. Procediendo a eliminarlo.');
             await Likes.destroy({ where: { userId, commentId } });
@@ -21,23 +23,23 @@ router.post('/', async (req, res) => {
             if (user) {
                 const notification = await Notification.create({
                     type: 'like',
-                    message: `Your comment has been liked by ${user.name}` ,
+                    message: `A ${user.name} Le gustó tu nota`,
                     userId: comment.userId,
+                    senderId: userId, // Asegurarse de que senderId se incluye aquí
                 });
                 console.log('Notificación creada:', notification.message);
             }
         }
 
-
-        const user = await User.findByPk(userId, {
+        const likedUser = await User.findByPk(userId, {
             attributes: ['name', 'picture']
         });
 
         const likeResponse = {
             like,
             user: {
-                name: user.name,
-                picture: user.picture,
+                name: likedUser.name,
+                picture: likedUser.picture,
                 likedAt: like.createdAt 
             }
         };

@@ -17,6 +17,11 @@ const resetpassword = require("./Profiles/resetpassword")
 const likes = require("../routes/likes/Likes.js")
 const refresh = require("../routes/token/refreshToken.js")
 const getNotification = require('../routes/likes/Noti.js')
+const postfollow = require('../routes/followers/followers.js')
+const getfollow = require('../routes/followers/getFollowers.js')
+const deletefollow = require('../routes/followers/deletefollow.js')
+const getallfollowers = require('../routes/followers/getallfollowers.js')
+
 
 
 const router = Router();
@@ -38,6 +43,10 @@ router.use("/resetpassword", resetpassword)
 router.use("/like", likes)
 router.use("/refresh-token", refresh)
 router.use("/noti", getNotification)
+router.use("/follow", postfollow)
+router.use("/followers", getfollow)
+router.use("/unfollow", deletefollow)
+router.use("/getallfollowers", getallfollowers)
 
 
 module.exports = router;

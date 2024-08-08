@@ -3,7 +3,7 @@ const { User, Comments } = require('../db.js');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const { uploadAudio } = require('../controllers/cloudAudio.js');
 const router = Router();
 
 const storage = multer.diskStorage({
@@ -37,7 +37,8 @@ router.post('/', upload.single('audio'), async (req, res) => {
     };
 
     if (audioFile) {
-      commentData.audioFilePath = audioFile.path; 
+      const audioURL = await uploadAudio(audioFile);
+      commentData.audioFilePath = audioURL; 
     }
 
     const comment = await Comments.create(commentData);

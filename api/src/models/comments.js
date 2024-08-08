@@ -21,8 +21,9 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
         to: {
-            type: DataTypes.STRING,  // Puedes ajustar el tipo de dato según sea necesario
+            type: DataTypes.STRING,  
             allowNull: true,
+            defaultValue: "Anonimo"
         },
         createdAt: {
             type: DataTypes.DATE,

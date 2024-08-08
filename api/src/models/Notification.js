@@ -18,11 +18,11 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    senderId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
   });
-
-  Notification.associate = (models) => {
-    Notification.belongsTo(models.User, { foreignKey: 'userId' });
-  };
 
   return Notification;
 };

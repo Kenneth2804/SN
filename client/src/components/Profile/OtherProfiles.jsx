@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Sidebar } from '../menu/Sidebar';
-import { getUserProfile } from '../../redux/actions/index'; 
-import { FaUserEdit } from "react-icons/fa";
+import { getUserProfile, getFollowers } from '../../redux/actions/index'; 
+import FollowButton from '../../components/Followers/FollowButton.jsx';
 
 const OtherProfiles = () => {
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const OtherProfiles = () => {
   
   const { id } = useParams(); 
   const [userData, setUserData] = useState(null); 
+  
+  useEffect(() => {
+    dispatch(getFollowers());
+  }, [dispatch]);
   
   useEffect(() => {
     dispatch(getUserProfile());
@@ -59,12 +63,20 @@ const OtherProfiles = () => {
             <p className="text-sm text-[#9ca3af] mt-1">
               <span className="text-[#6b7280]">Country:</span> {userData.originCountry}
             </p>
+            
+ 
+            {userData.id !== userProfile.id && (
+              <div className="mt-4">
+                <FollowButton followingId={userData.id} />
+              </div>
+            )}
+ 
           </div>
           <div className="border-t border-[#2d3748] px-6 py-4">
             <div className="flex items-center justify-between text-white font-medium cursor-pointer">
               Comments
             </div>
-             <div className="bg-[#f9f9d3] rounded-md shadow-md p-6 max-w-sm mx-auto relative">
+            <div className="bg-[#f9f9d3] rounded-md shadow-md p-6 max-w-sm mx-auto relative">
               <div className="absolute top-2 right-2 text-xs text-muted-foreground">
                 Created at: {new Date().toLocaleDateString()}
               </div>
@@ -110,7 +122,6 @@ const OtherProfiles = () => {
             </div>
           </div>
         </div>
-  
       </div>
     </>
   );

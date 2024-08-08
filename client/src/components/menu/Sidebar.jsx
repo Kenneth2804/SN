@@ -19,7 +19,7 @@ export const Sidebar = ({ userData }) => {
                 <button onClick={showNavbar} className="text-xl md:hidden">
                     <FaBars />
                 </button>
-                <a href="#"><img src={userData?.picture} alt="Profile" className='h-10 w-10 rounded-full md:block hidden' /></a>
+                <Link to="/profile"> <img src={userData?.picture} alt="Profile" className='h-10 w-10 rounded-full md:block hidden' /></Link>
                 <div className="hidden md:flex md:flex-col">
                    <Link to="/profile"> <span>{userData?.name}</span></Link>
                 </div>

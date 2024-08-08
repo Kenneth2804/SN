@@ -8,6 +8,7 @@ const Notifications = () => {
   const notifications = useSelector((state) => state.notifications);
   const userId = useSelector((state) => state.homeData?.id);
 
+  console.log("info de noti", notifications)
   useEffect(() => {
     if (userId) {
       dispatch(getNotifications(userId));
@@ -19,7 +20,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="fixed top-6 right-44">
+    <div className="static top-6 right-44">
       <div className="relative">
         <button
           onClick={handleToggleDropdown}
@@ -29,23 +30,23 @@ const Notifications = () => {
           <span className="sr-only">Notifications</span>
         </button>
         {isDropdownOpen && (
-          <div className="absolute right-0 mt-2 w-[400px] bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+          <div className="absolute right-0 mt-2 w-[400px] bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Notifications</h3>
-      
             </div>
             <div className="space-y-4">
               {notifications.length > 0 ? (
                 notifications.map((notification) => (
                   <div key={notification.id} className="flex items-center gap-3">
                     <img
-                      src={notification.picture} 
+                      src={notification.sender.picture} // Cambiado para usar la foto del usuario
+                      alt={notification.sender.name}
                       className="h-10 w-10 rounded-full object-cover"
                     />
                     <div className="flex-1">
-                      <p className="text-sm text-gray-500">{notification.message}</p>
+                      <p className="text-sm text-black font-semibold">{notification.message}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{notification.createdAt}</p>
+                    <p className="text-sm text-black font-light">{new Date(notification.createdAt).toLocaleString()}</p>
                   </div>
                 ))
               ) : (

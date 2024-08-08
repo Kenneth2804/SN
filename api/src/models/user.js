@@ -52,13 +52,26 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: true, 
     },
-        
-
   });
+
+  User.associate = (models) => {
+    User.belongsToMany(models.User, {
+      through: models.Follow,
+      as: 'followers',
+      foreignKey: 'followingId',
+      otherKey: 'followerId',
+    });
+    User.belongsToMany(models.User, {
+      through: models.Follow,
+      as: 'following',
+      foreignKey: 'followerId',
+      otherKey: 'followingId',
+    });
+  };
 
   User.prototype.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
   };
 
-  return User ;
+  return User;
 };

@@ -10,6 +10,8 @@ import '../src/css/tailwind.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001';
 
+/* axios.defaults.baseURL = process.env.REACT_APP_API || 'https://7j816tnb-3001.usw3.devtunnels.ms/'; */
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
