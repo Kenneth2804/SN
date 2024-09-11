@@ -15,6 +15,7 @@ module.exports = {
     '../client/src/components/Home.jsx',
     "../client/src/components/Profile/UserProfile.jsx",
     "../client/src/components/Profile/OtherProfiles.jsx",
+    "../client/src/components/Profile/EditProfile.jsx",
     "../client/src/components/token/AuthWrapper.jsx",
     "../client/src/components/notification/Notification.jsx"
 

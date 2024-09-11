@@ -3,24 +3,35 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Sidebar } from '../menu/Sidebar';
-import { getUserProfile } from '../../redux/actions/index'; 
-import { FaUserEdit } from "react-icons/fa";
+import { getUserProfile, getFollowers } from '../../redux/actions/index';
+import FollowButton from '../../components/Followers/FollowButton.jsx';
+
+const TABS = {
+  COMMENTS: "Comentarios",
+  LIKES: "Me gusta",
+  SAVED: "Guardados",
+};
 
 const OtherProfiles = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
-  
-  const { id } = useParams(); 
-  const [userData, setUserData] = useState(null); 
-  
+
+  const { id } = useParams();
+  const [userData, setUserData] = useState(null);
+  const [activeTab, setActiveTab] = useState(TABS.COMMENTS); // Estado para tabs
+
+  useEffect(() => {
+    dispatch(getFollowers());
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
-  
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/profiles/${id}`); 
+        const response = await axios.get(`/profiles/${id}`);
         setUserData(response.data);
       } catch (error) {
         console.error('Error al obtener los datos del usuario:', error);
@@ -37,6 +48,57 @@ const OtherProfiles = () => {
   if (!userData) {
     return <div>Cargando perfil del usuario...</div>;
   }
+
+  // Contenido del tab activo
+  const renderTabContent = () => {
+    const tabData = {
+      [TABS.COMMENTS]: userData.comments,
+      [TABS.LIKES]: userData.likes,
+      [TABS.SAVED]: userData.saved,
+    }[activeTab];
+
+    if (!tabData || tabData.length === 0) {
+      return <p className="text-gray-400">No hay datos para mostrar</p>;
+    }
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {tabData.map((item, index) => (
+          <div
+            key={index}
+            className="p-4 bg-white rounded-md shadow-md border border-gray-200"
+          >
+            {item.texto && (
+              <>
+                <div className="flex items-center gap-2">
+                  <MessageCircleIcon className="w-5 h-5 text-gray-500" />
+                  <p className="text-sm font-medium">Comentario</p>
+                </div>
+                <p className="text-xl font-semibold text-gray-700">
+                  {item.texto}
+                </p>
+              </>
+            )}
+            {item.audioFilePath && (
+              <>
+                <div className="flex items-center gap-2">
+                  <MicIcon className="w-5 h-5 text-gray-500" />
+                  <p className="text-sm font-medium">Audio</p>
+                </div>
+                <audio controls className="w-full mt-2">
+                  <source src={`http://localhost:3001/${item.audioFilePath}`} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </>
+            )}
+            <p className="text-xs text-gray-500 mt-2">
+              Fecha: {new Date(item.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -59,58 +121,52 @@ const OtherProfiles = () => {
             <p className="text-sm text-[#9ca3af] mt-1">
               <span className="text-[#6b7280]">Country:</span> {userData.originCountry}
             </p>
+
+            {userData.id !== userProfile.id && (
+              <div className="mt-4">
+                <FollowButton followingId={userData.id} />
+              </div>
+            )}
           </div>
           <div className="border-t border-[#2d3748] px-6 py-4">
-            <div className="flex items-center justify-between text-white font-medium cursor-pointer">
-              Comments
+            <div className="mt-6 flex justify-around border-t border-gray-200 pt-4">
+              <button
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === TABS.COMMENTS
+                    ? "text-blue-500 border-b-2 border-blue-500"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab(TABS.COMMENTS)}
+              >
+                Comentarios creados (
+                {userData.comments ? userData.comments.length : 0})
+              </button>
+              <button
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === TABS.LIKES
+                    ? "text-blue-500 border-b-2 border-blue-500"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab(TABS.LIKES)}
+              >
+                Comentarios guardados (
+                {userData.likes ? userData.likes.length : 0})
+              </button>
+              <button
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === TABS.SAVED
+                    ? "text-blue-500 border-b-2 border-blue-500"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab(TABS.SAVED)}
+              >
+                Comentarios con like (
+                {userData.saved ? userData.saved.length : 0})
+              </button>
             </div>
-             <div className="bg-[#f9f9d3] rounded-md shadow-md p-6 max-w-sm mx-auto relative">
-              <div className="absolute top-2 right-2 text-xs text-muted-foreground">
-                Created at: {new Date().toLocaleDateString()}
-              </div>
-              <div className="space-y-6">
-                {userData.comments && userData.comments.length > 0 ? (
-                  userData.comments.map((comment, index) => (
-                    <div key={index} className="space-y-4 p-4 border-b border-gray-700">
-                      {comment.texto && (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <MessageCircleIcon className="w-5 h-5 text-muted-foreground" />
-                            <p className="text-sm font-medium">Comment</p>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {comment.texto}
-                          </p>
-                        </>
-                      )}
-                      {comment.audioFilePath && (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <MicIcon className="w-5 h-5 text-muted-foreground" />
-                            <p className="text-sm font-medium">Voice</p>
-                          </div>
-                          <audio controls>
-                            <source
-                              src={`http://localhost:3001/${comment.audioFilePath}`}
-                              type="audio/mpeg"
-                            />
-                            Your browser does not support the audio element.
-                          </audio>
-                        </>
-                      )}
-                      <p className="text-xs text-muted-foreground">
-                        Created on: {new Date(comment.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground">No tiene contenido</p>
-                )}
-              </div>
-            </div>
+            <div className="mt-4">{renderTabContent()}</div>
           </div>
         </div>
-  
       </div>
     </>
   );

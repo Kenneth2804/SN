@@ -62,11 +62,15 @@ export default function CreateComments() {
       formData.append('audio', audioBlob, 'audio.wav');
     }
 
-    dispatch(createComment(formData));
-    setCommentText("");
-    setTo("");  
-    setIsPopupOpen(true);
-    window.location.reload();
+    try {
+      await dispatch(createComment(formData));
+      setCommentText("");
+      setTo("");  
+      setIsPopupOpen(true);
+      window.location.reload(); 
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
   };
 
   return (

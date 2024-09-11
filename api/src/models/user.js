@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
     picture: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
+      defaultValue: 'https://i.pinimg.com/originals/07/66/d1/0766d183119ff92920403eb7ae566a85.png',
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
@@ -52,13 +52,26 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: true, 
     },
-        
-
   });
+
+  User.associate = (models) => {
+    User.belongsToMany(models.User, {
+      through: models.Follow,
+      as: 'followers',
+      foreignKey: 'followingId',
+      otherKey: 'followerId',
+    });
+    User.belongsToMany(models.User, {
+      through: models.Follow,
+      as: 'following',
+      foreignKey: 'followerId',
+      otherKey: 'followingId',
+    });
+  };
 
   User.prototype.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
   };
 
-  return User ;
+  return User;
 };

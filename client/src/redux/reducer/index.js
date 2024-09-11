@@ -18,6 +18,10 @@ const initial = {
   resetPasswordStatus: null,
   resetPasswordError: null,
   notifications: [],
+  followers: [], 
+  following: [], 
+  followersCount: 0,
+  followersList: [],
 };
 
 export default function rootReducer(state = initial, action) {
@@ -114,28 +118,50 @@ export default function rootReducer(state = initial, action) {
         resetPasswordStatus: "failure",
         resetPasswordError: action.payload,
       };
-      case types.LIKE_COMMENT:
+
+    case types.LIKE_COMMENT:
+      return {
+        ...state,
+        allcoment: state.allcoment.map(comment =>
+          comment.id === action.payload.commentId
+            ? { ...comment, likes: [...comment.likes, { userId: action.payload.userId }] }
+            : comment
+        ),
+      };
+
+    case types.UNLIKE_COMMENT:
+      return {
+        ...state,
+        allcoment: state.allcoment.map(comment => 
+          comment.id === action.payload.commentId
+            ? { ...comment, likes: comment.likes.filter(like => like.userId !== action.payload.userId) }
+            : comment
+        )
+      };
+
+    case types.GET_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.payload,
+      };
+
+      case types.GET_FOLLOWERS:
         return {
           ...state,
-          allcoment: state.allcoment.map(comment =>
-            comment.id === action.payload.commentId
-              ? { ...comment, likes: [...comment.likes, { userId: action.payload.userId }] }
-              : comment
-          ),
+          followersList: action.payload,
+          followersCount: action.payload.length,
         };
-        case types.UNLIKE_COMMENT:
+      
+        case types.FOLLOW_USER:
           return {
             ...state,
-            allcoment: state.allcoment.map(comment => 
-              comment.id === action.payload.commentId
-                ? { ...comment, likes: comment.likes.filter(like => like.userId !== action.payload.userId) }
-                : comment
-            )
+            following: [...state.following, action.payload] 
           };
-          case types.GET_NOTIFICATIONS:
+
+          case types.UNFOLLOW_USER:
             return {
               ...state,
-              notifications: action.payload,
+              following: state.following.filter(following => following.id !== action.payload),
             };
 
     default:

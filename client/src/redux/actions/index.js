@@ -18,7 +18,10 @@ export const types ={
     RESET_PASSWORD_FAILURE: "RESET_PASSWORD_FAILURE",
     LIKE_COMMENT: 'LIKE_COMMENT',
     UNLIKE_COMMENT: 'UNLIKE_COMMENT',
-    GET_NOTIFICATIONS: "GET_NOTIFICATIONS"
+    GET_NOTIFICATIONS: "GET_NOTIFICATIONS",
+    FOLLOW_USER: "FOLLOW_USER",
+    UNFOLLOW_USER: "UNFOLLOW_USER",
+    GET_FOLLOWERS: "GET_FOLLOWERS",
 }
 export const setUser = (user) => {
   return {
@@ -133,31 +136,30 @@ export const login = (email, password) => {
   };
 
 
-export const createComment = (formData) => {
-  return async function (dispatch, getState) {
-    try {
-      const userEmail = getState().userEmail;
+  export const createComment = (formData) => {
+    return async function (dispatch, getState) {
+      try {
+        const userEmail = getState().userEmail;
   
-      if (!userEmail) {
-        console.error("El correo electrónico del usuario es nulo");
-        return;
-      }
-  
-      formData.append('email', userEmail);
-  
-      const response = await axios.post(`${URL}postcomment`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+        if (!userEmail) {
+          console.error("El correo electrónico del usuario es nulo");
+          return;
         }
-      });
-      dispatch({ type: types.CREATE_COMMENT, payload: response.data });
-      return response;
-    } catch (error) {
-      console.error("Error al crear comentario:", error);
-    }
+  
+        formData.append('email', userEmail);
+  
+        const response = await axios.post(`${URL}postcomment`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        dispatch({ type: types.CREATE_COMMENT, payload: response.data });
+        return response;
+      } catch (error) {
+        console.error("Error al crear comentario:", error);
+      }
+    };
   };
-};
-
   export const getLocalization = () => {
     return async function (dispatch) {
         try {
@@ -308,6 +310,58 @@ export const getNotifications = (userId) => {
       dispatch({ type: types.GET_NOTIFICATIONS, payload: response.data });
     } catch (error) {
       console.error("Error fetching notifications:", error);
+    }
+  };
+};
+
+
+export const followUser = (followingId) => {
+  return async function (dispatch) {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(`${URL}follow`, { followingId }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch({ type: types.FOLLOW_USER, payload: response.data });
+      return response;
+    } catch (error) {
+      console.error("Error al seguir al usuario:", error);
+    }
+  };
+};
+
+export const unfollowUser = (followingId) => {
+  return async function (dispatch) {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(`/unfollow`, { followingId }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch({ type: types.UNFOLLOW_USER, payload: followingId });
+      return response;
+    } catch (error) {
+      console.error("Error al dejar de seguir al usuario:", error);
+    }
+  };
+};
+
+export const getFollowers = (userId) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${URL}followers/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Followers API Response:", response.data); 
+      dispatch({ type: types.GET_FOLLOWERS, payload: response.data });
+    } catch (error) {
+      console.error("Error al obtener los seguidores:", error);
     }
   };
 };

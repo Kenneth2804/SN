@@ -50,7 +50,7 @@ export default function Home() {
       <AuthWrapper>
 
       <button 
-        className="bg-[#1a1a1a] text-white rounded-md px-4 py-2 flex items-center gap-2 hover:bg-[#2a2a2a] transition-colors createcomment" 
+        className="sticky top-20 z-20 bg-[#1a1a1a] text-white rounded-md px-4 py-2 flex items-center gap-2 hover:bg-[#2a2a2a] transition-colors createcomment" 
         onClick={openCreateComments}
         >
         <PencilIcon className="w-5 h-5" />
