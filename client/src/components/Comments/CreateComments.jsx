@@ -67,7 +67,7 @@ export default function CreateComments() {
       setCommentText("");
       setTo("");  
       setIsPopupOpen(true);
-      window.location.reload(); // Recargar la página después de enviar el comentario
+      window.location.reload(); 
     } catch (error) {
       console.error("Error submitting comment:", error);
     }
