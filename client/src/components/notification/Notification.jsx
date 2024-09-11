@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotifications } from '../../redux/actions';
+import { io } from 'socket.io-client'; 
 
 const Notifications = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notifications);
   const userId = useSelector((state) => state.homeData?.id);
+  const [socket, setSocket] = useState(null); 
+  console.log("noti", notifications)
 
-  console.log("info de noti", notifications)
+  useEffect(() => {
+    if (userId) {
+      const newSocket = io('http://localhost:3001');
+      setSocket(newSocket);
+
+      newSocket.emit('register', userId);
+
+      newSocket.on('notification', (notification) => {
+        dispatch({ type: 'GET_NOTIFICATIONS', payload: [notification, ...notifications] });
+      });
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, [userId, dispatch, notifications]);
+
   useEffect(() => {
     if (userId) {
       dispatch(getNotifications(userId));
@@ -39,12 +57,12 @@ const Notifications = () => {
                 notifications.map((notification) => (
                   <div key={notification.id} className="flex items-center gap-3">
                     <img
-                      src={notification.sender.picture} // Cambiado para usar la foto del usuario
-                      alt={notification.sender.name}
+                      src={notification.sender?.picture} 
+                      alt={notification.sender?.name}
                       className="h-10 w-10 rounded-full object-cover"
                     />
                     <div className="flex-1">
-                      <p className="text-sm text-black font-semibold">{notification.message}</p>
+                      <p className="text-sm text-black font-semibold">A {notification.sender?.name} Le gustó tu nota</p>
                     </div>
                     <p className="text-sm text-black font-light">{new Date(notification.createdAt).toLocaleString()}</p>
                   </div>

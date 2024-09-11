@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Likes, Notification, Comments, User } = require('../../db');
+const { sendNotification } = require('../../controllers/Socket.js'); 
 
 router.post('/', async (req, res) => {
     const { userId, commentId } = req.body;
@@ -9,25 +10,35 @@ router.post('/', async (req, res) => {
         const existingLike = await Likes.findOne({ where: { userId, commentId } });
 
         if (existingLike) {
-            console.log('Like existente encontrado. Procediendo a eliminarlo.');
             await Likes.destroy({ where: { userId, commentId } });
             return res.status(200).json({ message: 'Like eliminado.' });
         }
 
-        console.log('No se encontró un like existente. Creando uno nuevo.');
         const like = await Likes.create({ userId, commentId });
 
         const comment = await Comments.findByPk(commentId);
         if (comment) {
             const user = await User.findByPk(userId);
             if (user) {
+                // Crear la notificación
                 const notification = await Notification.create({
                     type: 'like',
-                    message: `A ${user.name} Le gustó tu nota`,
-                    userId: comment.userId,
-                    senderId: userId, // Asegurarse de que senderId se incluye aquí
+                    message: `A ${user.name} le gustó tu comentario`,
+                    userId: comment.userId, // usuario que recibirá la notificación
+                    senderId: userId, // usuario que dio el like
                 });
-                console.log('Notificación creada:', notification.message);
+
+                // Obtener el usuario que envió la notificación (sender)
+                const populatedNotification = {
+                    ...notification.toJSON(),
+                    sender: {
+                        name: user.name,
+                        picture: user.picture,
+                    }
+                };
+
+                // Enviar la notificación en tiempo real
+                sendNotification(comment.userId, populatedNotification);
             }
         }
 
@@ -40,7 +51,7 @@ router.post('/', async (req, res) => {
             user: {
                 name: likedUser.name,
                 picture: likedUser.picture,
-                likedAt: like.createdAt 
+                likedAt: like.createdAt
             }
         };
 

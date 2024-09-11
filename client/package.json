@@ -19,6 +19,7 @@
     "recorder-js": "^1.0.7",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "socket.io-client": "^4.7.5",
     "sweetalert2": "^11.12.3",
     "sweetalert2-react-content": "^5.0.7",
     "uuid": "^10.0.0",

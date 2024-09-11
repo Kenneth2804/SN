@@ -23,7 +23,7 @@ const FollowersModal = ({ show, handleClose, userId }) => {
     return (
       <>
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-50" 
+          className="fixed inset-0 bg-black bg-opacity-50 " 
           onClick={handleClose}
         ></div>
         <div 
@@ -31,7 +31,7 @@ const FollowersModal = ({ show, handleClose, userId }) => {
         >
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md relative">
             <button 
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl"
+              className="absolute top-2 right-2 text-red-600 hover:text-gray-900 text-4xl"
               onClick={handleClose}
             >
               &times;
@@ -51,12 +51,12 @@ const FollowersModal = ({ show, handleClose, userId }) => {
                     </li>
                   ))
                 ) : (
-                  <li className="text-center text-gray-600">No se encontraron seguidores.</li>
+                  <li className="text-center text-black">No se encontraron seguidores.</li>
                 )}
               </ul>
             </div>
             <button 
-              className="mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+              className="mt-4 px-4 py-2 bg-gray-600 text-red rounded hover:bg-gray-700"
               onClick={handleClose}
             >
               Cerrar

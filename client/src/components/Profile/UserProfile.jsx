@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserProfile } from '../../redux/actions/index'; 
-import EditProfile from './EditProfile.jsx';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserProfile } from "../../redux/actions/index";
 import { FaUserEdit } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-import { Sidebar } from '../menu/Sidebar.jsx';
-import AuthWrapper from '../token/AuthWrapper.jsx';
-import FollowersModal from '../Followers/FollowersModal.jsx';
+import { Link } from "react-router-dom";
+import FollowersModal from "../Followers/FollowersModal.jsx";
+import AuthWrapper from "../token/AuthWrapper.jsx";
+import { Sidebar } from "../menu/Sidebar.jsx";
+import { FiMapPin } from "react-icons/fi";
+
+const TABS = {
+  COMMENTS: "Comentarios",
+  LIKES: "Me gusta",
+  SAVED: "Guardados",
+};
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [activeTab, setActiveTab] = useState(TABS.COMMENTS);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -29,86 +36,140 @@ const UserProfile = () => {
     setShowFollowersModal(false);
   };
 
+  const renderTabContent = () => {
+    const tabData = {
+      [TABS.COMMENTS]: userProfile.comments,
+      [TABS.LIKES]: userProfile.likes,
+      [TABS.SAVED]: userProfile.saved,
+    }[activeTab];
+
+    if (!tabData || tabData.length === 0) {
+      return <p className="text-gray-400">No hay datos para mostrar</p>;
+    }
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {tabData.map((item, index) => (
+          <div
+            key={index}
+            className="p-4 bg-white rounded-md shadow-md border border-gray-200"
+          >
+            {item.texto && (
+              <>
+                <div className="flex items-center gap-2">
+                  <MessageCircleIcon className="w-5 h-5 text-gray-500" />
+                  <p className="text-sm font-medium">Comentario</p>
+                </div>
+                <p className="text-xl font-semibold text-gray-700">
+                  {item.texto}
+                </p>
+              </>
+            )}
+            {item.audioFilePath && (
+              <>
+                <div className="flex items-center gap-2">
+                  <MicIcon className="w-5 h-5 text-gray-500" />
+                  <p className="text-sm font-medium">Audio</p>
+                </div>
+                <audio controls className="w-full mt-2">
+                  <source src={item.audioFilePath} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </>
+            )}
+            <p className="text-xs text-gray-500 mt-2">
+              Fecha: {new Date(item.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       <Sidebar userData={userProfile}></Sidebar>
       <AuthWrapper>
-        <div className="w-full max-w-70 mx-auto my-8">
-          <div className="bg-[#1a1b1e] rounded-2xl overflow-hidden shadow-lg">
-            <div className="relative h-40 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]">
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-                <div className="w-28 h-28 border-4 border-[#1a1b1e] rounded-full overflow-hidden">
-                  <img src={userProfile.picture} alt="Imagen del perfil" className="w-full h-full object-cover" />
-                </div>
+        <div className="container mx-auto my-8 p-4 bg-neutral-800 rounded-lg shadow-lg">
+          <div className="flex">
+            <div className="flex flex-col items-center p-4">
+              <div className="w-24 h-24 border-2 border-gray-300 rounded-full overflow-hidden mb-4">
+                <img
+                  src={userProfile.picture}
+                  alt="Imagen del perfil"
+                  className="w-full h-full object-cover"
+                />
               </div>
+              <div className="text-center mb-4">
+                <h2 className="text-2xl font-bold text-white">
+                  {userProfile.name}
+                </h2>
+                <p className="text-sm text-gray-500 flex flex-col items-center">
+                  <FiMapPin color="red" />
+                  <span>
+                    {userProfile.originCity}, {userProfile.originCountry}
+                  </span>
+                </p>
+
+                <Link
+                  to="/edit"
+                  className="flex items-center space-x-2 text-blue-500 hover:text-blue-700 mt-2"
+                >
+                  <FaUserEdit />
+                  <span>Editar perfil</span>
+                </Link>
+              </div>
+              <button
+                onClick={handleFollowersModal}
+                className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+              >
+                Mostrar seguidores
+              </button>
             </div>
-            <div className="pt-16 pb-6 px-6 text-center">
-              <h2 className="text-2xl font-bold text-white">{userProfile.name}</h2>
-              <p className="text-sm text-[#9ca3af] mt-1">{userProfile.email}</p>
-              <p className="text-sm text-[#9ca3af] mt-1">{userProfile.id}</p>
-              <p className="text-sm text-[#9ca3af] mt-1">
-                <span className="text-[#6b7280]">City:</span> {userProfile.originCity}
-              </p>
-              <p className="text-sm text-[#9ca3af] mt-1">
-                <span className="text-[#6b7280]">Country:</span> {userProfile.originCountry}
-              </p>
-              <Link to={"/edit"} className='grid place-content-center mt-3' >
-                <FaUserEdit style={{ color: 'black', fontSize: '24px' }} />
-              </Link>
-              <button onClick={handleFollowersModal}>Show Followers</button>
-              <FollowersModal
-                show={showFollowersModal}
-                handleClose={handleCloseFollowersModal}
-                userId={userProfile.id}
-              />
-            </div>
-            <div className="border-t border-[#2d3748] px-6 py-4">
-              <div className="flex items-center justify-center text-white font-medium">
-                Comments
+            <div className="flex-1 ml-8">
+              <div className="mt-6 flex justify-around border-t border-gray-200 pt-4">
+                <button
+                  className={`px-4 py-2 font-semibold ${
+                    activeTab === TABS.COMMENTS
+                      ? "text-blue-500 border-b-2 border-blue-500"
+                      : "text-gray-500"
+                  }`}
+                  onClick={() => setActiveTab(TABS.COMMENTS)}
+                >
+                  Comentarios creados (
+                  {userProfile.comments ? userProfile.comments.length : 0})
+                </button>
+                <button
+                  className={`px-4 py-2 font-semibold ${
+                    activeTab === TABS.LIKES
+                      ? "text-blue-500 border-b-2 border-blue-500"
+                      : "text-gray-500"
+                  }`}
+                  onClick={() => setActiveTab(TABS.LIKES)}
+                >
+                  Comentarios guardados (
+                  {userProfile.likes ? userProfile.likes.length : 0})
+                </button>
+                <button
+                  className={`px-4 py-2 font-semibold ${
+                    activeTab === TABS.SAVED
+                      ? "text-blue-500 border-b-2 border-blue-500"
+                      : "text-gray-500"
+                  }`}
+                  onClick={() => setActiveTab(TABS.SAVED)}
+                >
+                  Comentarios con like (
+                  {userProfile.saved ? userProfile.saved.length : 0})
+                </button>
               </div>
-              <div className="bg-[#f9f9d3] rounded-md shadow-md p-6 max-w-sm mx-auto relative">
-                <div className="space-y-6">
-                  {userProfile.comments && userProfile.comments.length > 0 ? (
-                    userProfile.comments.map((comment, index) => (
-                      <div key={index} className="space-y-4 p-4 border-b border-gray-700">
-                        {comment.texto && (
-                          <>
-                            <div className="flex items-center gap-2">
-                              <MessageCircleIcon className="w-5 h-5 text-muted-foreground" />
-                              <p className="text-sm font-medium">Comment</p>
-                            </div>
-                            <p className="text-xl font-semibold text-muted-foreground">
-                              {comment.texto}
-                            </p>
-                          </>
-                        )}
-                        {comment.audioFilePath && (
-                          <>
-                            <div className="flex items-center gap-2">
-                              <MicIcon className="w-5 h-5 text-muted-foreground" />
-                              <p className="text-sm font-medium">Voice</p>
-                            </div>
-                            <audio controls>
-                              <source
-                                src={`http://localhost:3001/${comment.audioFilePath}`}
-                                type="audio/mpeg"
-                              />
-                              Your browser does not support the audio element.
-                            </audio>
-                          </>
-                        )}
-                        <p className="text-xs text-muted-foreground">
-                          Created on: {new Date(comment.createdAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-sm text-muted-foreground">No tiene contenido</p>
-                  )}
-                </div>
-              </div>
+              <div className="mt-4">{renderTabContent()}</div>
             </div>
           </div>
+          <FollowersModal
+            show={showFollowersModal}
+            handleClose={handleCloseFollowersModal}
+            userId={userProfile.id}
+          />
         </div>
       </AuthWrapper>
     </>
