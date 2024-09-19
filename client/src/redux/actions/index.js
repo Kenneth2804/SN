@@ -22,6 +22,7 @@ export const types ={
     FOLLOW_USER: "FOLLOW_USER",
     UNFOLLOW_USER: "UNFOLLOW_USER",
     GET_FOLLOWERS: "GET_FOLLOWERS",
+    GET_LIKES: 'GET_LIKES',
 }
 export const setUser = (user) => {
   return {
@@ -362,6 +363,18 @@ export const getFollowers = (userId) => {
       dispatch({ type: types.GET_FOLLOWERS, payload: response.data });
     } catch (error) {
       console.error("Error al obtener los seguidores:", error);
+    }
+  };
+};
+export const getLikes = (userId) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL}getlikes/${userId}`);
+      console.log('getLikes response:', response.data);
+      dispatch({ type: types.GET_LIKES, payload: response.data });
+      return response.data;
+    } catch (error) {
+      console.log('Error fetching likes:', error);
     }
   };
 };

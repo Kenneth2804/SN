@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile } from "../../redux/actions/index";
+import { getUserProfile, getLikes } from "../../redux/actions/index";
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FollowersModal from "../Followers/FollowersModal.jsx";
 import AuthWrapper from "../token/AuthWrapper.jsx";
 import { Sidebar } from "../menu/Sidebar.jsx";
 import { FiMapPin } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom'; 
 
 const TABS = {
   COMMENTS: "Comentarios",
@@ -16,9 +17,25 @@ const TABS = {
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
   const userProfile = useSelector((state) => state.userProfile);
+  const likesData = useSelector((state) => state.likesData);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.COMMENTS);
+  
+  const handleUserClick = (userId) => {
+    if (userId === userProfile.id) {
+      navigate('/profile'); 
+    } else {
+      navigate(`/profiles/${userId}`); 
+    }
+  };
+
+ useEffect(() => {
+    if (userProfile && userProfile.id) {
+      dispatch(getLikes(userProfile.id)); 
+    }
+  }, [dispatch, userProfile]);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -39,7 +56,7 @@ const UserProfile = () => {
   const renderTabContent = () => {
     const tabData = {
       [TABS.COMMENTS]: userProfile.comments,
-      [TABS.LIKES]: userProfile.likes,
+      [TABS.LIKES]: likesData?.likes || [],
       [TABS.SAVED]: userProfile.saved,
     }[activeTab];
 
@@ -48,38 +65,72 @@ const UserProfile = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {tabData.map((item, index) => (
           <div
             key={index}
             className="p-4 bg-white rounded-md shadow-md border border-gray-200"
           >
-            {item.texto && (
+            {activeTab === TABS.LIKES && item.comment && (
               <>
-                <div className="flex items-center gap-2">
-                  <MessageCircleIcon className="w-5 h-5 text-gray-500" />
-                  <p className="text-sm font-medium">Comentario</p>
+          
+                <div className="flex items-center mb-8">
+                 
+                  <img
+                    src={item.comment.user?.picture || '/default-profile.png'}
+                    alt="Foto del creador" 
+                    className="w-8 h-8 rounded-full mr-6 cursor-pointer"
+                    onClick={() => handleUserClick(item.comment.user.id)}
+                    />
+                    
+                  <p className="text-md font-semibold cursor-pointer" onClick={() => handleUserClick(item.comment.user.id)}>
+                    {item.comment.user?.name || 'Anónimo'}
+                  </p>
+                  <p className="text-sm text-gray-500 flex">
+                 To: <strong>{item.comment.to || 'Desconocido'}</strong>
+                </p>
                 </div>
-                <p className="text-xl font-semibold text-gray-700">
-                  {item.texto}
+ 
+                <p className="text-xl font-semibold text-gray-700 text-left">
+                  {item.comment.texto || 'Comentario sin texto'}
+                </p>
+                
+                <p className="text-xs text-gray-500 mt-2">
+                  Fecha: {new Date(item.comment.createdAt).toLocaleDateString()}
                 </p>
               </>
             )}
-            {item.audioFilePath && (
+
+            {activeTab !== TABS.LIKES && (
               <>
-                <div className="flex items-center gap-2">
-                  <MicIcon className="w-5 h-5 text-gray-500" />
-                  <p className="text-sm font-medium">Audio</p>
-                </div>
-                <audio controls className="w-full mt-2">
-                  <source src={item.audioFilePath} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
+                {item.texto && (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <MessageCircleIcon className="w-5 h-5 text-gray-500" />
+                      <p className="text-sm font-medium">Comentario</p>
+                    </div>
+                    <p className="text-xl font-semibold text-gray-700">
+                      {item.texto}
+                    </p>
+                  </>
+                )}
+                {item.audioFilePath && (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <MicIcon className="w-5 h-5 text-gray-500" />
+                      <p className="text-sm font-medium">Audio</p>
+                    </div>
+                    <audio controls className="w-full mt-2">
+                      <source src={item.audioFilePath} type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </>
+                )}
+                <p className="text-xs text-gray-500 mt-2">
+                  Fecha: {new Date(item.createdAt).toLocaleDateString()}
+                </p>
               </>
             )}
-            <p className="text-xs text-gray-500 mt-2">
-              Fecha: {new Date(item.createdAt).toLocaleDateString()}
-            </p>
           </div>
         ))}
       </div>
@@ -147,8 +198,8 @@ const UserProfile = () => {
                   }`}
                   onClick={() => setActiveTab(TABS.LIKES)}
                 >
-                  Comentarios guardados (
-                  {userProfile.likes ? userProfile.likes.length : 0})
+                  Me gusta (
+                  {likesData?.likes ? likesData.likes.length : 0})
                 </button>
                 <button
                   className={`px-4 py-2 font-semibold ${
@@ -158,7 +209,7 @@ const UserProfile = () => {
                   }`}
                   onClick={() => setActiveTab(TABS.SAVED)}
                 >
-                  Comentarios con like (
+                  Guardados (
                   {userProfile.saved ? userProfile.saved.length : 0})
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomUsers } from '../../redux/actions/index';
 import { useNavigate } from 'react-router-dom'; 
@@ -7,6 +7,7 @@ import "../../css/randomuser.css";
 const RandomUsers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
+  const userProfile = useSelector((state) => state.userProfile);
   const allusers = useSelector(state => state.allusers);
 
   useEffect(() => {
@@ -14,7 +15,11 @@ const RandomUsers = () => {
   }, [dispatch]);
 
   const handleUserClick = (userId) => {
-    navigate(`/profiles/${userId}`); 
+    if (userId === userProfile.id) {
+      navigate('/profile'); 
+    } else {
+      navigate(`/profiles/${userId}`); 
+    }
   };
 
   return (

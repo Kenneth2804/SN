@@ -18,7 +18,7 @@ const OtherProfiles = () => {
 
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
-  const [activeTab, setActiveTab] = useState(TABS.COMMENTS); // Estado para tabs
+  const [activeTab, setActiveTab] = useState(TABS.COMMENTS); 
 
   useEffect(() => {
     dispatch(getFollowers());
@@ -49,7 +49,6 @@ const OtherProfiles = () => {
     return <div>Cargando perfil del usuario...</div>;
   }
 
-  // Contenido del tab activo
   const renderTabContent = () => {
     const tabData = {
       [TABS.COMMENTS]: userData.comments,
@@ -86,7 +85,7 @@ const OtherProfiles = () => {
                   <p className="text-sm font-medium">Audio</p>
                 </div>
                 <audio controls className="w-full mt-2">
-                  <source src={`http://localhost:3001/${item.audioFilePath}`} type="audio/mpeg" />
+                  <source src={item.audioFilePath} type="audio/mpeg" />
                   Your browser does not support the audio element.
                 </audio>
               </>
