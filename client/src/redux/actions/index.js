@@ -23,6 +23,7 @@ export const types ={
     UNFOLLOW_USER: "UNFOLLOW_USER",
     GET_FOLLOWERS: "GET_FOLLOWERS",
     GET_LIKES: 'GET_LIKES',
+    PUT_DESCRIPTION: 'PUT_DESCRIPTION',
 }
 export const setUser = (user) => {
   return {
@@ -375,6 +376,17 @@ export const getLikes = (userId) => {
       return response.data;
     } catch (error) {
       console.log('Error fetching likes:', error);
+    }
+  };
+};
+export const PutDescription = (userId, description) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`${URL}description/${userId}`, { description });
+      dispatch({ type: types.PUT_DESCRIPTION, payload: response.data });
+      return response.data;
+    } catch (error) {
+      console.log("Error Put Function", error);
     }
   };
 };

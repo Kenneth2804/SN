@@ -169,6 +169,14 @@ export default function rootReducer(state = initial, action) {
                   ...state,
                   likesData: action.payload, 
               };
+              case types.PUT_DESCRIPTION:
+                return {
+                  ...state,
+                  user: {
+                    ...state.user,
+                    description: action.payload.description,
+                  },
+                };
     default:
       return { ...state };
   }
