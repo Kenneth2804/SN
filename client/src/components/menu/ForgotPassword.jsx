@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { requestPasswordReset, resetPassword } from "../../redux/actions/index.js"; 
 import { Link, useNavigate } from "react-router-dom";
+import postit from "../../images/postit.png"
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -54,13 +55,12 @@ export default function ForgotPassword() {
         <div className="max-w-md space-y-4">
           <div className="flex items-center space-x-4">
             <MoonIcon className="w-8 h-8 text-[#c0c0c0]" />
-            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to Dreamfall</h1>
+            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to SecretNotes</h1>
           </div>
           <p className="text-[#a0a0a0] text-lg">
-            Immerse yourself in the ethereal realm of Dreamfall, where the boundaries between reality and fantasy blur,
-            and the whispers of the cosmos guide your journey.
+          Step into the enigmatic world of Whispering Shadows, where hidden secrets and clandestine messages intertwine, and every note holds the key to unraveling a deeper mystery.
           </p>
-          <img src="/placeholder.svg" alt="Dreamscape Landscape" className="rounded-2xl shadow-lg" />
+          <img src={postit} alt="Dreamscape Landscape" className="rounded-2xl shadow-lg" />
         </div>
       </div>
       <div className="bg-[#0f0f0f] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24">

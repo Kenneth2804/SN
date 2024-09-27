@@ -9,7 +9,6 @@ const Notifications = () => {
   const notifications = useSelector((state) => state.notifications);
   const userId = useSelector((state) => state.homeData?.id);
   const [socket, setSocket] = useState(null); 
-  console.log("noti", notifications)
 
   useEffect(() => {
     if (userId) {

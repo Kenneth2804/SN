@@ -69,7 +69,7 @@ export default function GetComments() {
           const likesCount = comment.likes.length;
           const hasLiked = comment.likes.some(like => like?.userId === userId);
           return (
-            <div key={comment.id} className="w-full px-8 lg:px-0 mx-auto ml-20 bg-white rounded-lg">
+            <div key={comment.id} className="w-full px-16 lg:px-0 mx-auto ml-20 bg-white rounded-lg">
               <CommentCard
                 comment={comment}
                 readTextAloud={readTextAloud}

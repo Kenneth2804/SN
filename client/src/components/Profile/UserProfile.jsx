@@ -31,7 +31,7 @@ const UserProfile = () => {
     }
   };
 
- useEffect(() => {
+  useEffect(() => {
     if (userProfile && userProfile.id) {
       dispatch(getLikes(userProfile.id)); 
     }
@@ -73,28 +73,23 @@ const UserProfile = () => {
           >
             {activeTab === TABS.LIKES && item.comment && (
               <>
-          
                 <div className="flex items-center mb-8">
-                 
                   <img
                     src={item.comment.user?.picture || '/default-profile.png'}
                     alt="Foto del creador" 
                     className="w-8 h-8 rounded-full mr-6 cursor-pointer"
                     onClick={() => handleUserClick(item.comment.user.id)}
-                    />
-                    
+                  />
                   <p className="text-md font-semibold cursor-pointer" onClick={() => handleUserClick(item.comment.user.id)}>
                     {item.comment.user?.name || 'Anónimo'}
                   </p>
                   <p className="text-sm text-gray-500 flex">
-                 To: <strong>{item.comment.to || 'Desconocido'}</strong>
-                </p>
+                    To: <strong>{item.comment.to || 'Desconocido'}</strong>
+                  </p>
                 </div>
- 
                 <p className="text-xl font-semibold text-gray-700 text-left">
                   {item.comment.texto || 'Comentario sin texto'}
                 </p>
-                
                 <p className="text-xs text-gray-500 mt-2">
                   Fecha: {new Date(item.comment.createdAt).toLocaleDateString()}
                 </p>
@@ -141,10 +136,10 @@ const UserProfile = () => {
     <>
       <Sidebar userData={userProfile}></Sidebar>
       <AuthWrapper>
-        <div className="container mx-auto my-8 p-4 bg-neutral-800 rounded-lg shadow-lg">
-          <div className="flex">
+        <div className="container mx-auto my-8 p-4 bg-neutral-800 rounded-lg shadow-lg max-w-full lg:max-w-5xl">
+          <div className="flex flex-col sm:flex-row">
             <div className="flex flex-col items-center p-4">
-              <div className="w-24 h-24 border-2 border-gray-300 rounded-full overflow-hidden mb-4">
+              <div className="w-24 h-24 sm:w-20 sm:h-20 border-2 border-gray-300 rounded-full overflow-hidden mb-4">
                 <img
                   src={userProfile.picture}
                   alt="Imagen del perfil"
@@ -177,8 +172,8 @@ const UserProfile = () => {
                 Mostrar seguidores
               </button>
             </div>
-            <div className="flex-1 ml-8">
-              <div className="mt-6 flex justify-around border-t border-gray-200 pt-4">
+            <div className="flex-1 sm:ml-8">
+              <div className="mt-6 flex flex-col sm:flex-row justify-around border-t border-gray-200 pt-4">
                 <button
                   className={`px-4 py-2 font-semibold ${
                     activeTab === TABS.COMMENTS
@@ -262,9 +257,7 @@ function MicIcon(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-      <line x1="12" x2="12" y1="19" y2="22" />
+      <path d="M12 1v10M18 11v2a6 6 0 0 1-6 6 6 6 0 0 1-6-6v-2M15 22h-6" />
     </svg>
   );
 }
