@@ -29,9 +29,10 @@ const CommentCard = ({ comment, readTextAloud, handleLike, hasLiked, likesCount 
       </div>
     </div>
   </div>
-  <div className="w-full h-40 bg-black text-white rounded-lg p-4 overflow-auto">
+  <div className="w-full md:w-3/4 h-48 bg-black text-white rounded-lg p-4 overflow-auto">
     {comment.texto}
-  </div>
+</div>
+
   <button onClick={() => readTextAloud(comment.texto)} className="text-green-500 hover:underline mt-2">
     Leer en voz alta
   </button>

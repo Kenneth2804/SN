@@ -10,6 +10,7 @@ import OtherProfiles from './components/Profile/OtherProfiles';
 import EditProfile from './components/Profile/EditProfile';
 import ForgotPassword from './components/menu/ForgotPassword';
 import ViewForgotPassword from './components/menu/ViewForgotPassword';
+import NotiMovil from './components/notification/NotiMovil';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <Route path='/profile' exact element={<UserProfile/>}></Route>
     <Route path='/profiles/:id' exact element={<OtherProfiles/>}></Route>
     <Route path='/edit' exact element={<EditProfile></EditProfile>}></Route>
+    <Route path='/notimovil' exact element={<NotiMovil></NotiMovil>}></Route>
     <Route path='/forgotpassword' exact element={<ViewForgotPassword></ViewForgotPassword>}></Route>
   </Routes>
     </div>
