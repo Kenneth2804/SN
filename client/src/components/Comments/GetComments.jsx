@@ -41,7 +41,7 @@ export default function GetComments() {
     const utterance = new SpeechSynthesisUtterance(text);
     const spanishWords = ["el", "la", "y", "en", "que", "los", "se", "del", "las", "por"];
     const isSpanish = spanishWords.some(word => text.includes(word));
-    utterance.lang = isSpanish ? 'es-ES' : 'en-US';
+    utterance.lang = isSpanish ? 'en-US' : 'es-ES';
     speechSynthesis.speak(utterance);
   };
 
