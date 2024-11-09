@@ -20,15 +20,13 @@ router.post('/', async (req, res) => {
         if (comment) {
             const user = await User.findByPk(userId);
             if (user) {
-                // Crear la notificación
+             
                 const notification = await Notification.create({
                     type: 'like',
                     message: `A ${user.name} le gustó tu comentario`,
-                    userId: comment.userId, // usuario que recibirá la notificación
-                    senderId: userId, // usuario que dio el like
+                    userId: comment.userId, 
+                    senderId: userId,
                 });
-
-                // Obtener el usuario que envió la notificación (sender)
                 const populatedNotification = {
                     ...notification.toJSON(),
                     sender: {
@@ -36,8 +34,6 @@ router.post('/', async (req, res) => {
                         picture: user.picture,
                     }
                 };
-
-                // Enviar la notificación en tiempo real
                 sendNotification(comment.userId, populatedNotification);
             }
         }

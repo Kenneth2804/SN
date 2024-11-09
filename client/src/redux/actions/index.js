@@ -22,6 +22,8 @@ export const types ={
     FOLLOW_USER: "FOLLOW_USER",
     UNFOLLOW_USER: "UNFOLLOW_USER",
     GET_FOLLOWERS: "GET_FOLLOWERS",
+    GET_LIKES: 'GET_LIKES',
+    PUT_DESCRIPTION: 'PUT_DESCRIPTION',
 }
 export const setUser = (user) => {
   return {
@@ -51,7 +53,7 @@ export const home = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("token", token)
+
         dispatch({ type: types.LOAD_HOME_DATA, payload: response.data });
         return response;
       } catch (error) {
@@ -127,7 +129,7 @@ export const login = (email, password) => {
   
         const response = await axios.get(`${URL}comments${query}`);
         dispatch({ type: types.GET_COMMENTS, payload: response.data });
-        console.log("comentarios", response);
+       
         return response;
       } catch (error) {
         console.error("Error al obtener comentarios:", error);
@@ -165,7 +167,7 @@ export const login = (email, password) => {
         try {
             const response = await axios.get(`${URL}localization`);
             dispatch({ type: types.GET_LOCALIZATION_DATA, payload: response.data });
-            console.log("localización", response)
+      
             return response;
         } catch (error) {
             console.error("Error al obtener la localización:", error);
@@ -249,7 +251,6 @@ export const updateProfile = (userData, file) => {
 
       dispatch({ type: types.PROFILE, payload: response.data });
 
-      console.log("Perfil actualizado exitosamente", response);
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
     }
@@ -260,7 +261,7 @@ export const requestPasswordReset = (email) => {
   return async function (dispatch) {
     try {  
       const response = await axios.post(`${URL}forgotpassword`, { email });
-      console.log("Solicitud de restablecimiento de contraseña enviada", response.data);
+
     } catch (error) {
       console.error("Error al solicitar el restablecimiento de contraseña:", error);
  
@@ -277,7 +278,7 @@ export const resetPassword = (email, verificationCode, newPassword) => {
         verificationCode,
         newPassword,
       });
-      console.log("Contraseña actualizada con éxito", response.data);
+ 
       dispatch({ type: types.RESET_PASSWORD_SUCCESS });
     } catch (error) {
       console.error("Error al actualizar la contraseña:", error);
@@ -358,10 +359,33 @@ export const getFollowers = (userId) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Followers API Response:", response.data); 
+
       dispatch({ type: types.GET_FOLLOWERS, payload: response.data });
     } catch (error) {
       console.error("Error al obtener los seguidores:", error);
+    }
+  };
+};
+export const getLikes = (userId) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL}getlikes/${userId}`);
+     
+      dispatch({ type: types.GET_LIKES, payload: response.data });
+      return response.data;
+    } catch (error) {
+      console.log('Error fetching likes:', error);
+    }
+  };
+};
+export const PutDescription = (userId, description) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`${URL}description/${userId}`, { description });
+      dispatch({ type: types.PUT_DESCRIPTION, payload: response.data });
+      return response.data;
+    } catch (error) {
+      console.log("Error Put Function", error);
     }
   };
 };

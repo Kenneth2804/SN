@@ -22,6 +22,7 @@ const initial = {
   following: [], 
   followersCount: 0,
   followersList: [],
+  likesData: null,
 };
 
 export default function rootReducer(state = initial, action) {
@@ -163,7 +164,19 @@ export default function rootReducer(state = initial, action) {
               ...state,
               following: state.following.filter(following => following.id !== action.payload),
             };
-
+            case types.GET_LIKES:
+              return {
+                  ...state,
+                  likesData: action.payload, 
+              };
+              case types.PUT_DESCRIPTION:
+                return {
+                  ...state,
+                  user: {
+                    ...state.user,
+                    description: action.payload.description,
+                  },
+                };
     default:
       return { ...state };
   }

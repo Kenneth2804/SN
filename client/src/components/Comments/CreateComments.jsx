@@ -14,24 +14,18 @@ export default function CreateComments() {
   const [audioChunks, setAudioChunks] = useState([]);
   const [comments, setComments] = useState([]);
 
+  const userId = useSelector((state) => state.homeData); 
+
+  
   useEffect(() => {
     const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
       dispatch({ type: types.SET_USER_EMAIL, payload: storedEmail });
     }
 
-    fetchComments();
   }, [dispatch]);
 
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get('/postcomment');
-      setComments(response.data);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
+ 
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const recorder = new MediaRecorder(stream);
@@ -80,7 +74,7 @@ export default function CreateComments() {
           <label htmlFor="name" className="text-lg font-medium">
             From
           </label>
-          <input id="name" placeholder="Enter your name" className="w-full" />
+          <input id="name" className="w-full" value={userId?.name} disabled/>
         </div>
         <div className="mr-4">
           <label htmlFor="to" className="text-lg font-medium">
@@ -88,7 +82,7 @@ export default function CreateComments() {
           </label>
           <input 
             id="to" 
-            placeholder="Enter recipient's name" 
+            placeholder="Para quién ?" 
             value={to}
             onChange={(e) => setTo(e.target.value)} 
             className="w-full" 

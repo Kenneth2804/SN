@@ -41,7 +41,7 @@ export default function GetComments() {
     const utterance = new SpeechSynthesisUtterance(text);
     const spanishWords = ["el", "la", "y", "en", "que", "los", "se", "del", "las", "por"];
     const isSpanish = spanishWords.some(word => text.includes(word));
-    utterance.lang = isSpanish ? 'es-ES' : 'en-US';
+    utterance.lang = isSpanish ? 'en-US' : 'es-ES';
     speechSynthesis.speak(utterance);
   };
 
@@ -69,7 +69,7 @@ export default function GetComments() {
           const likesCount = comment.likes.length;
           const hasLiked = comment.likes.some(like => like?.userId === userId);
           return (
-            <div key={comment.id} className="w-full px-8 lg:px-0 mx-auto ml-20 bg-white rounded-lg">
+            <div key={comment.id} className="w-full px-16 lg:px-0 mx-auto ml-20 bg-white rounded-lg">
               <CommentCard
                 comment={comment}
                 readTextAloud={readTextAloud}

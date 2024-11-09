@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotifications } from '../../redux/actions';
-import { io } from 'socket.io-client'; 
+import { io } from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 
 const Notifications = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0); // Estado para notificaciones no leídas
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notifications);
   const userId = useSelector((state) => state.homeData?.id);
-  const [socket, setSocket] = useState(null); 
-  console.log("noti", notifications)
+  const [socket, setSocket] = useState(null);
+  const navigate = useNavigate(); 
+
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     if (userId) {
@@ -17,10 +21,11 @@ const Notifications = () => {
       setSocket(newSocket);
 
       newSocket.emit('register', userId);
-
       newSocket.on('notification', (notification) => {
         dispatch({ type: 'GET_NOTIFICATIONS', payload: [notification, ...notifications] });
+        setUnreadCount((prevCount) => prevCount + 1);
       });
+
       return () => {
         newSocket.disconnect();
       };
@@ -34,7 +39,15 @@ const Notifications = () => {
   }, [dispatch, userId]);
 
   const handleToggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
+    if (isMobile) {
+
+      navigate('/notimovil');
+    } else {
+      setIsDropdownOpen((prev) => !prev);
+      if (!isDropdownOpen) {
+        setUnreadCount(0);
+      }
+    }
   };
 
   return (
@@ -42,9 +55,14 @@ const Notifications = () => {
       <div className="relative">
         <button
           onClick={handleToggleDropdown}
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 relative"
         >
           <BellIcon className="w-6 h-6 text-gray-700" />
+          {unreadCount > 0 && ( // Mostrar el contador si hay notificaciones no leídas
+            <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+              {unreadCount}
+            </span>
+          )}
           <span className="sr-only">Notifications</span>
         </button>
         {isDropdownOpen && (
@@ -57,12 +75,12 @@ const Notifications = () => {
                 notifications.map((notification) => (
                   <div key={notification.id} className="flex items-center gap-3">
                     <img
-                      src={notification.sender?.picture} 
+                      src={notification.sender?.picture}
                       alt={notification.sender?.name}
                       className="h-10 w-10 rounded-full object-cover"
                     />
                     <div className="flex-1">
-                      <p className="text-sm text-black font-semibold">A {notification.sender?.name} Le gustó tu nota</p>
+                      <p className="text-sm text-black font-semibold">A {notification.sender?.name} le gustó tu nota</p>
                     </div>
                     <p className="text-sm text-black font-light">{new Date(notification.createdAt).toLocaleString()}</p>
                   </div>

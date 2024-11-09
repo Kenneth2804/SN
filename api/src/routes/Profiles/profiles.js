@@ -9,7 +9,7 @@ router.get('/:id', async (req, res) => {
       include: [{
         model: Comments,
         as: 'comments',
-        attributes: ['texto', 'audioFilePath', 'createdAt'] // Include audioFilePath
+        attributes: ['texto', 'audioFilePath', 'createdAt'] 
       }] 
     }); 
 

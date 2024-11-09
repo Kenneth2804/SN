@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile } from "../../redux/actions/index";
+import { getUserProfile, getLikes } from "../../redux/actions/index";
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FollowersModal from "../Followers/FollowersModal.jsx";
 import AuthWrapper from "../token/AuthWrapper.jsx";
 import { Sidebar } from "../menu/Sidebar.jsx";
 import { FiMapPin } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom'; 
 
 const TABS = {
   COMMENTS: "Comentarios",
@@ -16,9 +17,25 @@ const TABS = {
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
   const userProfile = useSelector((state) => state.userProfile);
+  const likesData = useSelector((state) => state.likesData);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.COMMENTS);
+  
+  const handleUserClick = (userId) => {
+    if (userId === userProfile.id) {
+      navigate('/profile'); 
+    } else {
+      navigate(`/profiles/${userId}`); 
+    }
+  };
+
+  useEffect(() => {
+    if (userProfile && userProfile.id) {
+      dispatch(getLikes(userProfile.id)); 
+    }
+  }, [dispatch, userProfile]);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -39,7 +56,7 @@ const UserProfile = () => {
   const renderTabContent = () => {
     const tabData = {
       [TABS.COMMENTS]: userProfile.comments,
-      [TABS.LIKES]: userProfile.likes,
+      [TABS.LIKES]: likesData?.likes || [],
       [TABS.SAVED]: userProfile.saved,
     }[activeTab];
 
@@ -48,38 +65,67 @@ const UserProfile = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-4">
         {tabData.map((item, index) => (
           <div
             key={index}
             className="p-4 bg-white rounded-md shadow-md border border-gray-200"
           >
-            {item.texto && (
+            {activeTab === TABS.LIKES && item.comment && (
               <>
-                <div className="flex items-center gap-2">
-                  <MessageCircleIcon className="w-5 h-5 text-gray-500" />
-                  <p className="text-sm font-medium">Comentario</p>
+                <div className="flex items-center mb-8">
+                  <img
+                    src={item.comment.user?.picture || '/default-profile.png'}
+                    alt="Foto del creador" 
+                    className="w-8 h-8 rounded-full mr-6 cursor-pointer"
+                    onClick={() => handleUserClick(item.comment.user.id)}
+                  />
+                  <p className="text-md font-semibold cursor-pointer" onClick={() => handleUserClick(item.comment.user.id)}>
+                    {item.comment.user?.name || 'Anónimo'}
+                  </p>
+                  <p className="text-sm text-gray-500 flex">
+                    To: <strong>{item.comment.to || 'Desconocido'}</strong>
+                  </p>
                 </div>
-                <p className="text-xl font-semibold text-gray-700">
-                  {item.texto}
+                <p className="text-xl font-semibold text-gray-700 text-left">
+                  {item.comment.texto || 'Comentario sin texto'}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  Fecha: {new Date(item.comment.createdAt).toLocaleDateString()}
                 </p>
               </>
             )}
-            {item.audioFilePath && (
+
+            {activeTab !== TABS.LIKES && (
               <>
-                <div className="flex items-center gap-2">
-                  <MicIcon className="w-5 h-5 text-gray-500" />
-                  <p className="text-sm font-medium">Audio</p>
-                </div>
-                <audio controls className="w-full mt-2">
-                  <source src={item.audioFilePath} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
+                {item.texto && (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <MessageCircleIcon className="w-5 h-5 text-gray-500" />
+                      <p className="text-sm font-medium">Comentario</p>
+                    </div>
+                    <p className="text-xl font-semibold text-gray-700">
+                      {item.texto}
+                    </p>
+                  </>
+                )}
+                {item.audioFilePath && (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <MicIcon className="w-5 h-5 text-gray-500" />
+                      <p className="text-sm font-medium">Audio</p>
+                    </div>
+                    <audio controls className="w-full mt-2">
+                      <source src={item.audioFilePath} type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </>
+                )}
+                <p className="text-xs text-gray-500 mt-2">
+                  Fecha: {new Date(item.createdAt).toLocaleDateString()}
+                </p>
               </>
             )}
-            <p className="text-xs text-gray-500 mt-2">
-              Fecha: {new Date(item.createdAt).toLocaleDateString()}
-            </p>
           </div>
         ))}
       </div>
@@ -90,10 +136,10 @@ const UserProfile = () => {
     <>
       <Sidebar userData={userProfile}></Sidebar>
       <AuthWrapper>
-        <div className="container mx-auto my-8 p-4 bg-neutral-800 rounded-lg shadow-lg">
-          <div className="flex">
+        <div className="container mx-auto my-8 p-4 bg-neutral-800 rounded-lg shadow-lg max-w-full lg:max-w-5xl">
+          <div className="flex flex-col sm:flex-row">
             <div className="flex flex-col items-center p-4">
-              <div className="w-24 h-24 border-2 border-gray-300 rounded-full overflow-hidden mb-4">
+              <div className="w-24 h-24 sm:w-20 sm:h-20 border-2 border-gray-300 rounded-full overflow-hidden mb-4">
                 <img
                   src={userProfile.picture}
                   alt="Imagen del perfil"
@@ -126,8 +172,8 @@ const UserProfile = () => {
                 Mostrar seguidores
               </button>
             </div>
-            <div className="flex-1 ml-8">
-              <div className="mt-6 flex justify-around border-t border-gray-200 pt-4">
+            <div className="flex-1 sm:ml-8">
+              <div className="mt-6 flex flex-col sm:flex-row justify-around border-t border-gray-200 pt-4">
                 <button
                   className={`px-4 py-2 font-semibold ${
                     activeTab === TABS.COMMENTS
@@ -147,8 +193,8 @@ const UserProfile = () => {
                   }`}
                   onClick={() => setActiveTab(TABS.LIKES)}
                 >
-                  Comentarios guardados (
-                  {userProfile.likes ? userProfile.likes.length : 0})
+                  Me gusta (
+                  {likesData?.likes ? likesData.likes.length : 0})
                 </button>
                 <button
                   className={`px-4 py-2 font-semibold ${
@@ -158,7 +204,7 @@ const UserProfile = () => {
                   }`}
                   onClick={() => setActiveTab(TABS.SAVED)}
                 >
-                  Comentarios con like (
+                  Guardados (
                   {userProfile.saved ? userProfile.saved.length : 0})
                 </button>
               </div>
@@ -211,9 +257,7 @@ function MicIcon(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-      <line x1="12" x2="12" y1="19" y2="22" />
+      <path d="M12 1v10M18 11v2a6 6 0 0 1-6 6 6 6 0 0 1-6-6v-2M15 22h-6" />
     </svg>
   );
 }

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { Sidebar } from '../menu/Sidebar';
-import { getUserProfile, getFollowers } from '../../redux/actions/index';
-import FollowButton from '../../components/Followers/FollowButton.jsx';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { Sidebar } from "../menu/Sidebar";
+import { getUserProfile, getFollowers } from "../../redux/actions/index";
+import FollowButton from "../../components/Followers/FollowButton.jsx";
 
 const TABS = {
   COMMENTS: "Comentarios",
@@ -18,7 +18,7 @@ const OtherProfiles = () => {
 
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
-  const [activeTab, setActiveTab] = useState(TABS.COMMENTS); // Estado para tabs
+  const [activeTab, setActiveTab] = useState(TABS.COMMENTS);
 
   useEffect(() => {
     dispatch(getFollowers());
@@ -34,7 +34,7 @@ const OtherProfiles = () => {
         const response = await axios.get(`/profiles/${id}`);
         setUserData(response.data);
       } catch (error) {
-        console.error('Error al obtener los datos del usuario:', error);
+        console.error("Error al obtener los datos del usuario:", error);
       }
     };
 
@@ -49,7 +49,6 @@ const OtherProfiles = () => {
     return <div>Cargando perfil del usuario...</div>;
   }
 
-  // Contenido del tab activo
   const renderTabContent = () => {
     const tabData = {
       [TABS.COMMENTS]: userData.comments,
@@ -86,7 +85,7 @@ const OtherProfiles = () => {
                   <p className="text-sm font-medium">Audio</p>
                 </div>
                 <audio controls className="w-full mt-2">
-                  <source src={`http://localhost:3001/${item.audioFilePath}`} type="audio/mpeg" />
+                  <source src={item.audioFilePath} type="audio/mpeg" />
                   Your browser does not support the audio element.
                 </audio>
               </>
@@ -108,7 +107,11 @@ const OtherProfiles = () => {
           <div className="relative h-40 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]">
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
               <div className="w-28 h-28 border-4 border-[#1a1b1e] rounded-full overflow-hidden">
-                <img src={userData.picture} alt="Imagen del perfil" className="w-full h-full object-cover" />
+                <img
+                  src={userData.picture}
+                  alt="Imagen del perfil"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -116,10 +119,12 @@ const OtherProfiles = () => {
             <h2 className="text-2xl font-bold text-white">{userData.name}</h2>
             <p className="text-sm text-[#9ca3af] mt-1">{userData.email}</p>
             <p className="text-sm text-[#9ca3af] mt-1">
-              <span className="text-[#6b7280]">City:</span> {userData.originCity}
+              <span className="text-[#6b7280]">City:</span>{" "}
+              {userData.originCity}
             </p>
             <p className="text-sm text-[#9ca3af] mt-1">
-              <span className="text-[#6b7280]">Country:</span> {userData.originCountry}
+              <span className="text-[#6b7280]">Country:</span>{" "}
+              {userData.originCountry}
             </p>
 
             {userData.id !== userProfile.id && (

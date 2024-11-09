@@ -21,6 +21,8 @@ const getfollow = require('../routes/followers/getFollowers.js');
 const deletefollow = require('../routes/followers/deletefollow.js');
 const getallfollowers = require('../routes/followers/getallfollowers.js');
 const statusfollower = require('../routes/followers/StaturFollow.js');
+const getLikes = require('../routes/likes/GetLikes.js');
+const PutDescription = require('../routes/Description/PostDescription.js');
 
 const router = Router();
 
@@ -46,5 +48,7 @@ router.use('/followers', getfollow);
 router.use('/unfollow', deletefollow);
 router.use('/getallfollowers', getallfollowers);
 router.use('/following-status', statusfollower);
+router.use('/getlikes', getLikes);
+router.use('/description', PutDescription);
 
 module.exports = router;
