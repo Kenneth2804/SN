@@ -389,3 +389,24 @@ export const PutDescription = (userId, description) => {
     }
   };
 };
+
+export const DeleteNote = (noteId) => {
+  return async function (dispatch) {
+    try {
+      const token = localStorage.getItem("token"); 
+      const response = await axios.delete(`${URL}notedelete`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: { id: noteId },
+      });
+
+      dispatch({ type: "DELETE_NOTE_SUCCESS", payload: noteId });
+      return response.data;
+    } catch (error) {
+      console.error("Error al eliminar la nota:", error);
+      dispatch({ type: "DELETE_NOTE_FAILURE", payload: error });
+    }
+  };
+};

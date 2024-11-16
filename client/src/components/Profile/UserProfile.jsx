@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile, getLikes } from "../../redux/actions/index";
+import { getUserProfile, getLikes, DeleteNote } from "../../redux/actions/index"; 
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import FollowersModal from "../Followers/FollowersModal.jsx";
 import AuthWrapper from "../token/AuthWrapper.jsx";
 import { Sidebar } from "../menu/Sidebar.jsx";
@@ -22,7 +23,9 @@ const UserProfile = () => {
   const likesData = useSelector((state) => state.likesData);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.COMMENTS);
-  
+  const [comments, setComments] = useState([]);
+
+console.log("useeeeer", userProfile)
   const handleUserClick = (userId) => {
     if (userId === userProfile.id) {
       navigate('/profile'); 
@@ -32,10 +35,11 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (userProfile && userProfile.id) {
-      dispatch(getLikes(userProfile.id)); 
+    if (userProfile && userProfile.comments) {
+      setComments(userProfile.comments);
     }
-  }, [dispatch, userProfile]);
+  }, [userProfile]);
+  
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -52,6 +56,34 @@ const UserProfile = () => {
   const handleCloseFollowersModal = () => {
     setShowFollowersModal(false);
   };
+  const handleDeleteComment = (commentId) => {
+    if (!commentId) return;
+  
+    Swal.fire({
+      title: "¿Quieres eliminar la nota?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(DeleteNote(commentId)).then(() => {
+          Swal.fire(
+            "Eliminado",
+            "La nota ha sido eliminada correctamente",
+            "success"
+          ).then(() => {
+            window.location.reload();
+          });
+        });
+      }
+    });
+  };
+   
+  
 
   const renderTabContent = () => {
     const tabData = {
@@ -65,64 +97,55 @@ const UserProfile = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2  gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {tabData.map((item, index) => (
           <div
             key={index}
             className="p-4 bg-white rounded-md shadow-md border border-gray-200"
           >
-            {activeTab === TABS.LIKES && item.comment && (
+            {activeTab === TABS.COMMENTS && (
               <>
-                <div className="flex items-center mb-8">
-                  <img
-                    src={item.comment.user?.picture || '/default-profile.png'}
-                    alt="Foto del creador" 
-                    className="w-8 h-8 rounded-full mr-6 cursor-pointer"
-                    onClick={() => handleUserClick(item.comment.user.id)}
-                  />
-                  <p className="text-md font-semibold cursor-pointer" onClick={() => handleUserClick(item.comment.user.id)}>
-                    {item.comment.user?.name || 'Anónimo'}
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-xl font-semibold text-gray-700">
+                    {item.texto || "Comentario sin texto"}
                   </p>
-                  <p className="text-sm text-gray-500 flex">
-                    To: <strong>{item.comment.to || 'Desconocido'}</strong>
-                  </p>
+                  <button
+  onClick={() => {
+    console.log("Datos del comentario:", item);
+    handleDeleteComment(item?.id);
+  }}
+  className="text-red-500 hover:text-red-700"
+>
+  Eliminar
+</button>
+
                 </div>
-                <p className="text-xl font-semibold text-gray-700 text-left">
-                  {item.comment.texto || 'Comentario sin texto'}
-                </p>
-                <p className="text-xs text-gray-500 mt-2">
-                  Fecha: {new Date(item.comment.createdAt).toLocaleDateString()}
+                <p className="text-xs text-gray-500">
+                  Fecha: {new Date(item.createdAt).toLocaleDateString()}
                 </p>
               </>
             )}
-
-            {activeTab !== TABS.LIKES && (
+            {activeTab === TABS.LIKES && item.comment && (
               <>
-                {item.texto && (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <MessageCircleIcon className="w-5 h-5 text-gray-500" />
-                      <p className="text-sm font-medium">Comentario</p>
-                    </div>
-                    <p className="text-xl font-semibold text-gray-700">
-                      {item.texto}
-                    </p>
-                  </>
-                )}
-                {item.audioFilePath && (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <MicIcon className="w-5 h-5 text-gray-500" />
-                      <p className="text-sm font-medium">Audio</p>
-                    </div>
-                    <audio controls className="w-full mt-2">
-                      <source src={item.audioFilePath} type="audio/mpeg" />
-                      Your browser does not support the audio element.
-                    </audio>
-                  </>
-                )}
-                <p className="text-xs text-gray-500 mt-2">
-                  Fecha: {new Date(item.createdAt).toLocaleDateString()}
+                <div className="flex items-center mb-4">
+                  <img
+                    src={item.comment.user?.picture || "/default-profile.png"}
+                    alt="Foto del creador"
+                    className="w-8 h-8 rounded-full mr-6 cursor-pointer"
+                    onClick={() => handleUserClick(item.comment.user.id)}
+                  />
+                  <p
+                    className="text-md font-semibold cursor-pointer"
+                    onClick={() => handleUserClick(item.comment.user.id)}
+                  >
+                    {item.comment.user?.name || "Anónimo"}
+                  </p>
+                </div>
+                <p className="text-xl font-semibold text-gray-700">
+                  {item.comment.texto || "Comentario sin texto"}
+                </p>
+                <p className="text-xs text-gray-500">
+                  Fecha: {new Date(item.comment.createdAt).toLocaleDateString()}
                 </p>
               </>
             )}
@@ -150,13 +173,10 @@ const UserProfile = () => {
                 <h2 className="text-2xl font-bold text-white">
                   {userProfile.name}
                 </h2>
-                <p className="text-sm text-gray-500 flex flex-col items-center">
-                  <FiMapPin color="red" />
-                  <span>
-                    {userProfile.originCity}, {userProfile.originCountry}
-                  </span>
+                <p className="text-sm text-gray-500">
+                  <FiMapPin color="red" />{" "}
+                  {userProfile.originCity}, {userProfile.originCountry}
                 </p>
-
                 <Link
                   to="/edit"
                   className="flex items-center space-x-2 text-blue-500 hover:text-blue-700 mt-2"
@@ -193,8 +213,7 @@ const UserProfile = () => {
                   }`}
                   onClick={() => setActiveTab(TABS.LIKES)}
                 >
-                  Me gusta (
-                  {likesData?.likes ? likesData.likes.length : 0})
+                  Me gusta ({likesData?.likes ? likesData.likes.length : 0})
                 </button>
                 <button
                   className={`px-4 py-2 font-semibold ${
@@ -223,41 +242,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-function MessageCircleIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    </svg>
-  );
-}
-
-function MicIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 1v10M18 11v2a6 6 0 0 1-6 6 6 6 0 0 1-6-6v-2M15 22h-6" />
-    </svg>
-  );
-}

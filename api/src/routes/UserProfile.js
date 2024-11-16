@@ -26,6 +26,7 @@ router.get("/", authenticateToken, isAuthenticated, async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
     const userComments = dbUser.comments ? dbUser.comments.map((comment) => ({
+      id: comment.id,
       texto: comment.texto,
       audioFilePath: comment.audioFilePath,
       createdAt: comment.createdAt

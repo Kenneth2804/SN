@@ -177,6 +177,17 @@ export default function rootReducer(state = initial, action) {
                     description: action.payload.description,
                   },
                 };
+                case "DELETE_NOTE_SUCCESS":
+                  return {
+                    ...state,
+                    allcoment: state.allcoment.filter((comment) => comment.id !== action.payload),
+                  };
+            
+                case "DELETE_NOTE_FAILURE":
+                  return {
+                    ...state,
+                    error: action.payload,
+                  };
     default:
       return { ...state };
   }
