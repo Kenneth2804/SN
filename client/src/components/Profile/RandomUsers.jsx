@@ -15,7 +15,7 @@ const RandomUsers = () => {
   }, [dispatch]);
 
   const handleUserClick = (userId) => {
-    if (userId === userProfile.id) {
+    if (userId === userProfile?.id) {
       navigate('/profile'); 
     } else {
       navigate(`/profiles/${userId}`); 
@@ -26,7 +26,7 @@ const RandomUsers = () => {
     <div>
       <ul>
         {allusers.map((user, index) => (
-          <li className='piclist' key={index} onClick={() => handleUserClick(user.id)}> 
+          <li className='piclist' key={index} onClick={() => handleUserClick(user?.id)}> 
             <img className='randompic' src={user.picture} alt={`User ${index}`} />
           </li>
         ))}

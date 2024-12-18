@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'; // Para enlaces a otras partes de la app
 import { Sidebar } from '../menu/Sidebar';
 
 export default function NotiMovil() {
-  const notifications = useSelector((state) => state.notifications); // Obtener notificaciones del store
+  const notifications = useSelector((state) => state.notifications); 
 
   return (
       <div className="p-4">
