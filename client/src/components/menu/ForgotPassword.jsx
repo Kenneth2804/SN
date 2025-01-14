@@ -122,7 +122,7 @@ export default function ForgotPassword() {
         <div className="max-w-md space-y-4">
           <div className="flex items-center space-x-4">
             <MoonIcon className="w-8 h-8 text-[#c0c0c0]" />
-            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to SECRET NOTES</h1>
+            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to ANNONOTES</h1>
           </div>
           <p className="text-[#a0a0a0] text-lg">
             Step into the enigmatic world of Whispering Shadows, where hidden secrets and clandestine messages intertwine.
