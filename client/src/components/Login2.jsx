@@ -29,7 +29,7 @@ export default function Login2() {
       const response = await dispatch(login(email, password));
 
       if (response.success) {
-        // Handle successful login
+ 
       } else {
         setErrorMessage("Login failed. Please check your credentials.");
       }
@@ -41,12 +41,12 @@ export default function Login2() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full">
-      {/* Welcome section */}
+ 
       <div className="bg-[#1a1a1a] flex flex-col items-center justify-center px-8 py-12 md:px-16 order-last md:order-first">
         <div className="max-w-md space-y-4">
           <div className="flex items-center space-x-4">
             <MoonIcon className="w-8 h-8 text-[#c0c0c0]" />
-            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to SECRET NOTES</h1>
+            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to ANNONOTES</h1>
           </div>
           <p className="text-[#a0a0a0] text-lg">
             Step into the enigmatic world of Whispering Shadows, where hidden secrets and clandestine messages intertwine, and every note holds the key to unraveling a deeper mystery.
@@ -55,11 +55,10 @@ export default function Login2() {
         </div>
       </div>
 
-      {/* Form section */}
       <div className="bg-[#0f0f0f] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24 order-first md:order-last">
         <div className="max-w-md space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter the SECRET NOTES</h2>
+            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter the ANNONOTES</h2>
             <p className="text-[#a0a0a0] text-lg">Login to continue your journey.</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -71,7 +71,7 @@ export default function Login() {
       <div className="bg-[#0f0f0f] flex flex-col items-center justify-center px-8 py-12 md:px-16 md:py-24 order-first md:order-last">
         <div className="max-w-md space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter to SECRET NOTES</h2>
+            <h2 className="text-2xl font-bold text-[#c0c0c0]">Enter to ANNONOTES</h2>
             <p className="text-[#a0a0a0] text-lg">Create your account to unlock the secrets of the ethereal realm.</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -168,7 +168,7 @@ export default function Login() {
         <div className="max-w-md space-y-4">
           <div className="flex items-center space-x-4">
             <MoonIcon className="w-8 h-8 text-[#c0c0c0]" />
-            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to SECRET NOTES</h1>
+            <h1 className="text-3xl font-bold text-[#c0c0c0]">Welcome to ANNONOTES</h1>
           </div>
           <p className="text-[#a0a0a0] text-lg">
             Step into the enigmatic world of Whispering Shadows, where hidden secrets and clandestine messages intertwine, and every note holds the key to unraveling a deeper mystery.

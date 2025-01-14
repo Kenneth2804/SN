@@ -34,7 +34,7 @@ export default function LandingInfo() {
         transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
       }}
     >
-      <h2>What to do in Secret Notes</h2>
+      <h2>What to do in ANNONOTES</h2>
       <p>Nuestra plataforma ofrece un espacio único donde los usuarios pueden compartir libremente sus pensamientos, experiencias y sentimientos de manera anónima...</p>
     </div>
   );
